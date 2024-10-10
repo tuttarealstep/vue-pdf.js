@@ -1,1 +1,1 @@
-D:/Progetti/2024/vue-pdfjs/packages/vue/README.md
+packages/vue/README.md
