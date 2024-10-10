@@ -8,8 +8,11 @@ on:
     types: [created]
 
 jobs:
-  build:
+  build:  
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:    
       - name: Checkout
       - uses: actions/checkout@v4
@@ -19,16 +22,9 @@ jobs:
       
       - name: Install packages
       - run: bun i
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
+      
       - name: Publish packages
-      - working-directory: packages/vue-pdf
+      - working-directory: packages/vue
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN }}
