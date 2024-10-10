@@ -68,10 +68,10 @@
   ],
   "main": "./dist/vue-pdfjs.umd.cjs",
   "module": "./dist/vue-pdfjs.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/vue-pdfjs.js",
       "require": "./dist/vue-pdfjs.umd.cjs"
     },
