@@ -24,6 +24,6 @@ jobs:
 
       - name: Publish packages
         working-directory: packages/vue
-        run: npm publish --provenance --access public
+        run: bun publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
