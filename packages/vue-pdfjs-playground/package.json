@@ -7,7 +7,7 @@
     "dev": "vite --force"
   },
   "dependencies": {
-    "@tuttarealstep/vue-pdf.js": "*"
+    "@tuttarealstep/vue-pdf.js": "file:../vue"
   },
   "peerDependencies": {
     "vue": "^3.4.29"
