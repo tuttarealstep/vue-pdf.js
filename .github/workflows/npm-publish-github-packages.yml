@@ -12,24 +12,26 @@ on:
 jobs:
   build:  
     runs-on: ubuntu-latest
-    steps:    
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
       
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       
       - name: Install packages
-        run: bun i
-        
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-            node-version: '20.x'
-            registry-url: 'https://registry.npmjs.org'
+        run: bun install
 
+      - name: Build package
+        run: bun run build
+      
       - name: Publish packages
         working-directory: packages/vue
-        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
