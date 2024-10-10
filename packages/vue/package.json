@@ -14,7 +14,7 @@
     "vue-pdf",
     "pdf-viewer",
     "pdf.js"
-  ],  
+  ],
   "homepage": "https://github.com/tuttarealstep/vue-pdf.js",
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "scripts": {
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
+    "test": "vitest --dom",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
@@ -52,15 +53,17 @@
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
+    "happy-dom": "^15.7.4",
     "jsdom": "^24.1.0",
     "npm-run-all2": "^6.2.0",
     "prettier": "^3.2.5",
     "sass-embedded": "^1.79.4",
     "typescript": "~5.4.0",
     "vite": "^5.3.1",
+    "vite-plugin-dts": "^4.2.3",
+    "vite-tsconfig-paths": "^5.0.1",
     "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.21",
-    "vite-plugin-dts": "^4.2.3"
+    "vue-tsc": "^2.0.21"
   },
   "files": [
     "dist",
