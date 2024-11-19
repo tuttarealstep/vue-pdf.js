@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --force"
+    "dev": "bun run --cwd ../vue build && vite --force"
   },
   "dependencies": {
     "@tuttarealstep/vue-pdf.js": "file:../vue"

@@ -17,11 +17,11 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
   toolbar: {
     options: {
       secondaryOpenFile: false,
-      secondaryDownload: false,
+      /*secondaryDownload: false,
       secondaryPrint: false,
       scaleSelect: false,
       print: false,
-      download: false,
+      download: false,*/
     }
   }
 })

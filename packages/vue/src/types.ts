@@ -34,7 +34,7 @@ export interface PDFSourceWithOptions {
 }
 
 export interface PDFInfoMetadata {
-    info: Object
+    info: any
     metadata: Metadata
 }
 
