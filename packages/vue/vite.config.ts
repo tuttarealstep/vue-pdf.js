@@ -32,7 +32,7 @@ export default defineConfig({
           vue: "Vue"
         }
       }
-    }
+    },
   },
   resolve: {
     alias: {
@@ -45,6 +45,9 @@ export default defineConfig({
       'fluent-dom': fileURLToPath(new URL('../../node_modules/@fluent/dom/esm/index.js', import.meta.url)),
       'cached-iterable': fileURLToPath(new URL('../../node_modules/cached-iterable/src/index.mjs', import.meta.url)),
 
+      'display-cmap_reader_factory': fileURLToPath(new URL('../../node_modules/pdf.js/src/display/cmap_reader_factory.js', import.meta.url)),
+      'display-standard_fontdata_factory': fileURLToPath(new URL('../../node_modules/pdf.js/src/display/standard_fontdata_factory.js', import.meta.url)),
+      
       'display-fetch_stream': fileURLToPath(new URL('../../node_modules/pdf.js/src/display/fetch_stream.js', import.meta.url)),
       'display-network': fileURLToPath(new URL('../../node_modules/pdf.js/src/display/network.js', import.meta.url)),
       'display-node_stream': fileURLToPath(new URL('../../node_modules/pdf.js/src/display/stubs.js', import.meta.url)),
