@@ -6,6 +6,7 @@ export default defineConfig({
   title: "vue-pdfjs",
   description:
     "A Vue component for displaying PDF files using the standard `pdf.js` viewer. This package provides a simple and powerful integration to embed PDF viewers in Vue applications.",
+  base: "/vue-pdf.js/",
   themeConfig: {
     logo: { src: "/vue_pdfjs.svg", width: 48, height: 48 },
 
