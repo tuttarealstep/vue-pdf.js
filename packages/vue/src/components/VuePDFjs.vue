@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '../assets/scss/main.scss'
 
-import { onMounted, onUnmounted, ref, shallowRef, watch } from 'vue';
+import { onMounted, onUnmounted, ref, shallowRef, watch, provide } from 'vue';
 import { initViewer, PDFViewerApplicationOptions } from '../scripts/viewer';
 
 import OuterContainer from './OuterContainer.vue';
@@ -12,6 +12,8 @@ import { processSource } from '../scripts/utils';
 import { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdf.js/src/display/api';
 //@ts-ignore
 import { PDFViewerApplication } from 'pdf.js/web/app';
+import { ToolbarContainerProps } from './ToolbarContainer.vue';
+import { toolbarOptionsKey } from '@/keys';
 
 export interface VuePDFjsProps {
   source?: PDFSource | PDFSourceWithOptions | PDFDocumentProxy
@@ -20,7 +22,8 @@ export interface VuePDFjsProps {
     locale?: {
       code: string,
       ftl: string
-    }
+    },
+    toolbar?: ToolbarContainerProps
   }
 }
 
@@ -40,6 +43,8 @@ const pdfLoadingTask = shallowRef<PDFDocumentLoadingTask>()
 const pdfDocument = shallowRef<PDFDocumentProxy>()
 const pdfPages = shallowRef(0)
 const pdfInfo = shallowRef<PDFInfo | {}>({})
+
+provide(toolbarOptionsKey, props.options?.toolbar)
 
 async function init() {
   if (!container.value) {

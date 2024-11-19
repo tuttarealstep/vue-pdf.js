@@ -3,15 +3,26 @@ import { reactive, useTemplateRef } from 'vue'
 import { VuePDFjs, usePDF } from '@tuttarealstep/vue-pdf.js'
 import '@tuttarealstep/vue-pdf.js/dist/style.css'
 import enUS_FTL from '@tuttarealstep/vue-pdf.js/l10n/en-US/viewer.ftl?raw'
+import type { VuePDFjsProps } from '../../vue/dist/src/components/VuePDFjs.vue';
 
 const pdf = new URL('./assets/compressed.tracemonkey-pldi-09.pdf', import.meta.url);
 
 const vuepdfjs = useTemplateRef<typeof VuePDFjs>('vuepdfjs')
 
-const options = reactive({
+const options = reactive<NonNullable<VuePDFjsProps['options']>>({
   locale: {
     code: 'en-US',
     ftl: enUS_FTL
+  },
+  toolbar: {
+    options: {
+      secondaryOpenFile: false,
+      /*secondaryDownload: false,
+      secondaryPrint: false,
+      scaleSelect: false,
+      print: false,
+      download: false,*/
+    }
   }
 })
 
@@ -33,13 +44,13 @@ const onPdfAppLoaded = () => {
   })
 }
 
-const { pdf: document, info, pages} = usePDF(pdf)
+const { pdf: document, info, pages } = usePDF(pdf)
 
 console.log(document, info, pages)
 </script>
 
 <template>
-  <div id="app">
+  <div id="playground">
     <VuePDFjs ref="vuepdfjs" :source="document" :options="options" @pdf-app:loaded="onPdfAppLoaded" />
   </div>
 </template>
@@ -47,7 +58,8 @@ console.log(document, info, pages)
 <style>
 html,
 body,
-#app {
+#app,
+#playground {
   height: 100%;
   width: 100%;
 }

@@ -2,6 +2,7 @@
 import { TypedArray, DocumentInitParameters, PDFDocumentLoadingTask, OnProgressParameters, PDFDocumentProxy } from "pdf.js/src/display/api";
 //@ts-ignore
 import { Metadata } from "pdf.js/src/display/metadata";
+import { ToolbarContainerProps } from "./components/ToolbarContainer.vue";
 
 export type OnProgressCallback = (progressData: OnProgressParameters) => void
 export type UpdatePasswordFn = (newPassword: string) => void
@@ -33,7 +34,7 @@ export interface PDFSourceWithOptions {
 }
 
 export interface PDFInfoMetadata {
-    info: Object
+    info: any
     metadata: Metadata
 }
 
