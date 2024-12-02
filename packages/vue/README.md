@@ -2,6 +2,8 @@
 
 `vue-pdfjs` is a Vue 3 component for displaying PDF files using the standard `pdf.js` viewer. This package provides a simple and powerful integration to embed PDF viewers in Vue applications.
 
+[Docs](https://tuttarealstep.github.io/vue-pdf.js)
+
 ## Features
 
 - Display PDF files with `pdf.js`
