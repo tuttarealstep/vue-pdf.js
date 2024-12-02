@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run --cwd ./packages/vue-pdfjs-playground dev",
+    "postinstall": "bun run --cwd ./packages/vue postinstall",
     "build": "bun run --cwd ./packages/vue build",
     "test": "bun run --cwd ./packages/vue test",
     "docs:dev": "vitepress dev docs",
@@ -14,9 +15,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {
-    "@tuttarealstep/vue-pdf.js": "file:./packages/vue"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/bun": "latest",
     "vitepress": "^1.5.0"

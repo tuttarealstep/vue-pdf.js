@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive, useTemplateRef, ref, watchEffect } from 'vue'
-import { VuePDFjs, usePDF } from '@tuttarealstep/vue-pdf.js'
-import '@tuttarealstep/vue-pdf.js/dist/style.css'
-import enUS_FTL from '@tuttarealstep/vue-pdf.js/l10n/en-US/viewer.ftl?raw'
-import type { VuePDFjsProps } from '../../vue/dist/src/components/VuePDFjs.vue';
+import { VuePDFjs, usePDF } from '../packages/vue'
+import '../packages/vue/dist/style.css'
+import enUS_FTL from '../packages/vue/dist/l10n/en-US/viewer.ftl?raw'
+import type { VuePDFjsProps } from '../packages/vue/dist/src/components/VuePDFjs.vue';
 
 const vuepdfjs = useTemplateRef<typeof VuePDFjs>('vuepdfjs')
 
