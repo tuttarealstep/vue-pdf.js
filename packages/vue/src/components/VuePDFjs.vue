@@ -13,7 +13,8 @@ import { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdf.js/src/display/api
 //@ts-ignore
 import { PDFViewerApplication } from 'pdf.js/web/app';
 import { ToolbarContainerProps } from './ToolbarContainer.vue';
-import { toolbarOptionsKey } from '@/keys';
+import { sidebarOptionsKey, toolbarOptionsKey } from '@/keys';
+import { SidebarContainerProps } from './SidebarContainer.vue';
 
 export interface VuePDFjsProps {
   source?: PDFSource | PDFSourceWithOptions | PDFDocumentProxy
@@ -24,6 +25,7 @@ export interface VuePDFjsProps {
       ftl: string
     },
     toolbar?: ToolbarContainerProps
+    sidebar?: SidebarContainerProps
   }
 }
 
@@ -45,6 +47,7 @@ const pdfPages = shallowRef(0)
 const pdfInfo = shallowRef<PDFInfo | {}>({})
 
 provide(toolbarOptionsKey, props.options?.toolbar)
+provide(sidebarOptionsKey, props.options?.sidebar)
 
 async function init() {
   if (!container.value) {

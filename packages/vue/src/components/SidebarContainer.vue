@@ -1,5 +1,16 @@
+<script setup lang="ts">
+import { defineProps } from 'vue'
+
+export interface SidebarContainerProps {
+    visible?: boolean;
+}
+
+const props = defineProps<SidebarContainerProps>()
+
+</script>
+
 <template>
-    <div id="sidebarContainer">
+    <div id="sidebarContainer" v-show="props.visible !== false">
         <div id="toolbarSidebar" class="toolbarHorizontalGroup">
             <div id="toolbarSidebarLeft">
                 <div id="sidebarViewButtons" class="toolbarHorizontalGroup toggled" role="radiogroup">

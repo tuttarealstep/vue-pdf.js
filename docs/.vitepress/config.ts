@@ -39,6 +39,10 @@ export default defineConfig({
           { text: "Usage with Nuxt", link: "/examples/nuxt-example" },
         ],
       },
+      {
+        text: "Playground",
+        link: "/playground",
+      },
     ],
 
     socialLinks: [
