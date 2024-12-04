@@ -24,7 +24,7 @@
     "url": "https://github.com/tuttarealstep/vue-pdf.js/issues"
   },
   "scripts": {
-    "postinstall": "bun scripts/postinstall.ts",
+    "prebuild": "bun scripts/prebuild.ts",
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
     "test": "vitest",
