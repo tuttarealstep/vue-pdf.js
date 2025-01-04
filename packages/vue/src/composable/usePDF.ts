@@ -8,7 +8,8 @@ import * as PDFJS from 'pdf.js/src/pdf.js'
 import { PDFJSWorker } from '../scripts/viewer'
 
 export default function usePDF(source: PDFSource | Ref<PDFSource>, options?: PDFSourceOptions) {
-  if (!PDFJS.GlobalWorkerOptions?.workerSrc) PDFJS.GlobalWorkerOptions.workerSrc = PDFJSWorker
+  if (!PDFJS.GlobalWorkerOptions?.workerPort)
+    PDFJS.GlobalWorkerOptions.workerPort = new PDFJSWorker()
 
   const pdf = shallowRef<PDFDocumentLoadingTask>()
   const pages = shallowRef(0)

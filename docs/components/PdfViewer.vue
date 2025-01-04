@@ -64,7 +64,7 @@ const onPdfAppLoaded = () => {
     })
 }
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.9.124/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compressed.tracemonkey-pldi-09.pdf'
 </script>
 
 <template>

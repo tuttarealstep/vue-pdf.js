@@ -11,7 +11,7 @@ const {
   info: pdfInfo,
   pages: pdfPages
 } = usePDF(
-  'https://raw.githubusercontent.com/mozilla/pdf.js/v4.9.124/web/compressed.tracemonkey-pldi-09.pdf'
+  'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compressed.tracemonkey-pldi-09.pdf'
 )
 
 beforeAll(async () => {
