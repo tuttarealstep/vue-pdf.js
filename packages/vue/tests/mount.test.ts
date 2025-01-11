@@ -9,9 +9,7 @@ const {
   pdf: pdfDocument,
   info: pdfInfo,
   pages: pdfPages
-} = usePDF(
-  'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compressed.tracemonkey-pldi-09.pdf'
-)
+} = usePDF(new URL('../../vue-pdfjs-playground/src/assets/compressed.tracemonkey-pldi-09.pdf', import.meta.url))
 
 beforeAll(async () => {
   await vi.waitUntil(() => pdfDocument.value, { timeout: 5000 })
@@ -32,8 +30,7 @@ test('Render component', () => {
           ftl: enUS_FTL
         }
       }
-    },
-    
+    }
   })
 
   //Expect the pdfInfo.value.metadata to be an object

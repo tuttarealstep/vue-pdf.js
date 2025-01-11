@@ -177,3 +177,6 @@ dist
 # Vitepress
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+# In any tests directory ignore __screenshots__ directory
+__screenshots__/

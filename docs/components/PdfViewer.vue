@@ -27,6 +27,15 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
     }
 })
 
+const onErrorHandler = (error: Error) => {
+    console.error('Error loading PDF:', error)
+    alert('An error occurred with the PDF')
+}
+
+const sourceOptions = {
+    onError: onErrorHandler
+}
+
 watchEffect(() => {
     if (options.toolbar) {
         options.toolbar.visible = !hideToolbar.value
@@ -62,6 +71,8 @@ const onPdfAppLoaded = () => {
         //Set the number of pages in the ref
         pages.value = e.pagesCount
     })
+
+    vuepdfjs.value.pdfApp.eventBus.on('documenterror', onErrorHandler)
 }
 
 const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compressed.tracemonkey-pldi-09.pdf'
@@ -73,8 +84,12 @@ const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compr
     <div>
         <input type="checkbox" v-model="hideToolbar" /> Hide Toolbar
         <input type="checkbox" v-model="hideSidebar" /> Hide Sidebar
+        <button type="button" class="custom-button">
+            Load Invalid PDF
+        </button>
     </div>
-    <VuePDFjs ref="vuepdfjs" :source="pdf" :options="options" @pdf-app:loaded="onPdfAppLoaded" />
+    <VuePDFjs ref="vuepdfjs" :source="pdf" :options="options" :source-options="sourceOptions"
+        @pdf-app:loaded="onPdfAppLoaded" />
 </template>
 
 <style>
@@ -84,5 +99,14 @@ const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compr
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+.custom-button {
+    padding: 0.25rem 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 </style>

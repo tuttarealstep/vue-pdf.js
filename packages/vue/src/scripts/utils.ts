@@ -8,7 +8,12 @@ import {
   UpdatePasswordFn
 } from '../types'
 
-const getByteArray = function (file: File) {
+/**
+ * Converts a File object to a Uint8Array.
+ * @param {File} file - The file to convert.
+ * @returns {Promise<Uint8Array>} A promise that resolves to a Uint8Array.
+ */
+const getByteArray = function (file: File): Promise<Uint8Array> {
   const fileReader = new FileReader()
   return new Promise(function (resolve: (value: Uint8Array) => void, reject) {
     fileReader.readAsArrayBuffer(file)
@@ -24,6 +29,12 @@ const getByteArray = function (file: File) {
   })
 }
 
+/**
+ * Parses a PDF source file and returns a PDFDocumentLoadingTask.
+ * @param {PDFSource} source - The source of the PDF file.
+ * @returns {Promise<PDFDocumentLoadingTask>} A promise that resolves to a PDFDocumentLoadingTask.
+ * @throws {Error} If the source is invalid.
+ */
 export async function parseSourceFile(source: PDFSource): Promise<PDFDocumentLoadingTask> {
   if (source == null || source === undefined) {
     throw new Error('Invalid parameter')
@@ -66,6 +77,12 @@ export async function parseSourceFile(source: PDFSource): Promise<PDFDocumentLoa
   return getDocument(source!)
 }
 
+/**
+ * Processes a PDF source and returns a PDFDocumentProxy.
+ * @param {PDFSource | PDFSourceWithOptions} inputSource - The input source of the PDF file.
+ * @param {PDFSourceOptions} [sourceOptions] - Optional source options.
+ * @returns {Promise<PDFDocumentProxy | null>} A promise that resolves to a PDFDocumentProxy or null.
+ */
 export async function processSource(
   inputSource: PDFSource | PDFSourceWithOptions,
   sourceOptions?: PDFSourceOptions
@@ -94,8 +111,14 @@ export async function processSource(
   const loadingTask = await parseSourceFile(source).catch((error) => {
     if (options?.onError) {
       options.onError(error)
+    } else {
+      console.error(error)
     }
   })
+
+  if (!loadingTask) {
+    return null
+  }
 
   if (options?.onProgress) {
     loadingTask.onProgress = options.onProgress
@@ -110,5 +133,11 @@ export async function processSource(
     loadingTask.onPassword = onPassword
   }
 
-  return loadingTask.promise
+  return loadingTask.promise.catch((error: any) => {
+    if (options?.onError) {
+      options.onError(error)
+    } else {
+      console.error(error)
+    }
+  })
 }

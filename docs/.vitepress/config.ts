@@ -47,6 +47,10 @@ export default defineConfig({
 
     socialLinks: [
       { icon: "github", link: "https://github.com/tuttarealstep/vue-pdf.js" },
+      {
+        icon: "npm",
+        link: "https://www.npmjs.com/package/@tuttarealstep/vue-pdf.js",
+      },
     ],
   },
 });

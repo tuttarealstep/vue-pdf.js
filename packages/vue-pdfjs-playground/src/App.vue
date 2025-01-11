@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, reactive, ref, useTemplateRef, watchEffect } from 'vue'
+import { h, reactive, ref, useTemplateRef, watch, watchEffect } from 'vue'
 import { VuePDFjs, usePDF } from '@tuttarealstep/vue-pdf.js'
 import '@tuttarealstep/vue-pdf.js/dist/style.css'
 import enUS_FTL from '@tuttarealstep/vue-pdf.js/l10n/en-US/viewer.ftl?raw'
@@ -7,7 +7,7 @@ import type { VuePDFjsProps } from '../../vue/dist/src/components/VuePDFjs.vue';
 
 const pdf = new URL('./assets/compressed.tracemonkey-pldi-09.pdf', import.meta.url);
 
-const vuepdfjs = useTemplateRef<typeof VuePDFjs>('vuepdfjs')
+const vuepdfjs = useTemplateRef<InstanceType<typeof VuePDFjs>>('vuepdfjs')
 
 const hideToolbar = ref(false)
 const hideSidebar = ref(false)
@@ -21,8 +21,8 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
     visible: true,
     options: {
       sidebarToggle: false,
-      secondaryOpenFile: false,
-      /*secondaryDownload: false,
+      /*secondaryOpenFile: false,
+      secondaryDownload: false,
       secondaryPrint: false,
       scaleSelect: false,
       print: false,
@@ -31,8 +31,9 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
   },
   sidebar: {
     visible: true
-  }
+  },
 })
+
 
 watchEffect(() => {
   if (options.toolbar) {
@@ -47,6 +48,12 @@ watchEffect(() => {
   if (options.sidebar)
     options.sidebar.visible = !hideSidebar.value
 })
+
+const onPdfAppError = (error: unknown) => {
+  console.error(error)
+
+  alert("An error occurred whit the PDF document.")
+}
 
 const onPdfAppLoaded = () => {
   console.log('pdf-app:loaded')
@@ -64,20 +71,40 @@ const onPdfAppLoaded = () => {
       highlightAll: true
     })
   })
+
+  vuepdfjs.value.pdfApp.eventBus.on('documenterror', onPdfAppError)
 }
 
-const { pdf: document, info, pages } = usePDF(pdf)
+const sourceOptions = reactive<NonNullable<VuePDFjsProps['sourceOptions']>>({
+  onError: onPdfAppError
+})
 
-console.log(document, info, pages)
+const { pdf: document, info, pages } = usePDF(pdf, {
+  onError: onPdfAppError
+})
+
+const source = ref<any>()
+
+watch(document, (value) => {
+  source.value = value
+})
+
 </script>
 
 <template>
   <div>
     <input type="checkbox" v-model="hideToolbar" /> Hide Toolbar
     <input type="checkbox" v-model="hideSidebar" /> Hide Sidebar
+    <button type="button" class="custom-button" @click="source = `invalid${new Date().getTime()}.pdf`">
+      Load Invalid PDF
+    </button>
+  </div>
+  <div>
+    We have {{ vuepdfjs?.pdfPages }} pages in this document.
   </div>
   <div id="playground">
-    <VuePDFjs ref="vuepdfjs" :source="document" :options="options" @pdf-app:loaded="onPdfAppLoaded" />
+    <VuePDFjs ref="vuepdfjs" :source :options="options" :source-options="sourceOptions"
+      @pdf-app:loaded="onPdfAppLoaded" />
   </div>
 </template>
 

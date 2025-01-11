@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '../assets/scss/main.scss'
 
-import { onMounted, onUnmounted, ref, shallowRef, watch, provide } from 'vue';
+import { onMounted, onUnmounted, ref, shallowRef, provide, watch } from 'vue';
 import { initViewer, PDFViewerApplicationOptions } from '../scripts/viewer';
 
 import OuterContainer from './OuterContainer.vue';
@@ -49,6 +49,24 @@ const pdfInfo = shallowRef<PDFInfo | {}>({})
 provide(toolbarOptionsKey, props.options?.toolbar)
 provide(sidebarOptionsKey, props.options?.sidebar)
 
+async function loadDocumentInfo(document: PDFDocumentProxy) {
+  pdfDocument.value = document;
+  pdfLoadingTask.value = document.loadingTask;
+  pdfPages.value = document.numPages;
+
+  const metadata = await document.getMetadata()
+  const attachments = (await document.getAttachments()) as Record<string, unknown>
+  const javascript = await document.getJSActions()
+  const outline = await document.getOutline()
+
+  pdfInfo.value = {
+    metadata,
+    attachments,
+    javascript,
+    outline,
+  }
+}
+
 async function init() {
   if (!container.value) {
     throw new Error('Container not found');
@@ -75,9 +93,21 @@ async function init() {
     pdfApp.value = await initViewer(container.value);
     await pdfApp.value.initializedPromise;
 
+    pdfApp.value.eventBus.on('documentloaded', (
+      event: {
+        source: PDFViewerApplication
+      }
+    ) => {
+      loadDocumentInfo(event.source.pdfDocument);
+    })
+
     emit('pdf-app:loaded');
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
+
+    if (props.sourceOptions?.onError) {
+      props.sourceOptions.onError(error);
+    }
   }
 
   isLoading.value = false;
@@ -90,6 +120,7 @@ function clearCacheTimeout() {
     clearTimeout(cacheTimeoutId)
 }
 
+
 async function initDocument(document: PDFDocumentProxy | null) {
   if (!document || !pdfApp.value) {
     return;
@@ -97,35 +128,35 @@ async function initDocument(document: PDFDocumentProxy | null) {
 
   clearCacheTimeout()
 
-  pdfDocument.value = document;
-  pdfLoadingTask.value = document.loadingTask;
-  pdfPages.value = document.numPages;
-
-  const metadata = await document.getMetadata()
-  const attachments = (await document.getAttachments()) as Record<string, unknown>
-  const javascript = await document.getJSActions()
-  const outline = await document.getOutline()
-
-  pdfInfo.value = {
-    metadata,
-    attachments,
-    javascript,
-    outline,
-  }
+  await loadDocumentInfo(document);
 
   pdfApp.value?.load(document);
 }
 
 async function openSource(source: PDFSource | PDFSourceWithOptions | PDFDocumentProxy) {
-  if (source !== undefined && source !== null) {
-    if (source instanceof PDFDocumentProxy) {
-      initDocument(source);
-    } else {
-      initDocument(await processSource(source, props.sourceOptions));
+  try {
+    if (source !== undefined && source !== null) {
+      if (source instanceof PDFDocumentProxy) {
+        initDocument(source);
+      } else {
+        initDocument(await processSource(source, {
+          ...props.sourceOptions,
+          onError: (error) => {
+            if (props.sourceOptions?.onError) {
+              props.sourceOptions.onError(error);
+            } else {
+              console.error(error);
+            }
+          }
+        }));
+      }
     }
-  } else {
-    if (pdfApp.value) {
-      await pdfApp.value.close();
+  }
+  catch (error) {
+    if (props.sourceOptions?.onError) {
+      props.sourceOptions.onError(error);
+    } else {
+      console.error(error);
     }
   }
 }
@@ -141,8 +172,9 @@ onMounted(async () => {
     await openSource(props.source);
 })
 
-onUnmounted(() => {
-  pdfDocument.value?.destroy();
+onUnmounted(async () => {
+  if (pdfApp.value)
+    await pdfApp.value.close();
 })
 
 defineExpose({
