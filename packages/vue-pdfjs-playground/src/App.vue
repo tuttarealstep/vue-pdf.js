@@ -11,6 +11,8 @@ const vuepdfjs = useTemplateRef<InstanceType<typeof VuePDFjs>>('vuepdfjs')
 
 const hideToolbar = ref(false)
 const hideSidebar = ref(false)
+const useContainerQuery = ref(false)
+const playgroundWidth = ref(100)
 
 const options = reactive<NonNullable<VuePDFjsProps['options']>>({
   locale: {
@@ -88,7 +90,6 @@ const source = ref<any>()
 watch(document, (value) => {
   source.value = value
 })
-
 </script>
 
 <template>
@@ -98,12 +99,17 @@ watch(document, (value) => {
     <button type="button" class="custom-button" @click="source = `invalid${new Date().getTime()}.pdf`">
       Load Invalid PDF
     </button>
+    <input type="checkbox" v-model="useContainerQuery" /> Use container query
+    <div>
+      <label>Playground Width: {{ playgroundWidth }}%</label>
+      <input type="range" v-model="playgroundWidth" min="0" max="100" />
+    </div>
   </div>
   <div>
     We have {{ vuepdfjs?.pdfPages }} pages in this document.
   </div>
-  <div id="playground">
-    <VuePDFjs ref="vuepdfjs" :source :options="options" :source-options="sourceOptions"
+  <div id="playground" :style="{ width: playgroundWidth + '%' }">
+    <VuePDFjs ref="vuepdfjs" :source :options="options" :source-options="sourceOptions" :use-container-query
       @pdf-app:loaded="onPdfAppLoaded" />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '../assets/scss/main.scss'
 
-import { onMounted, onUnmounted, ref, shallowRef, provide, watch } from 'vue';
+import { onMounted, onUnmounted, ref, shallowRef, provide, watch, onUpdated, nextTick } from 'vue';
 import { initViewer, PDFViewerApplicationOptions } from '../scripts/viewer';
 
 import OuterContainer from './OuterContainer.vue';
@@ -17,8 +17,21 @@ import { sidebarOptionsKey, toolbarOptionsKey } from '@/keys';
 import { SidebarContainerProps } from './SidebarContainer.vue';
 
 export interface VuePDFjsProps {
+  /**
+   * The source of the PDF file.
+   */
   source?: PDFSource | PDFSourceWithOptions | PDFDocumentProxy
+  /**
+   * The options for the PDF source.
+   */
   sourceOptions?: PDFSourceOptions,
+  /**
+   * If true, the component will use the container query to adjust the viewer height.
+   */
+  useContainerQuery?: boolean,
+  /**
+   * The options for the PDF viewer.
+   */
   options?: {
     locale?: {
       code: string,
@@ -30,7 +43,8 @@ export interface VuePDFjsProps {
 }
 
 const props = withDefaults(defineProps<VuePDFjsProps>(), {
-  source: null
+  source: null,
+  useContainerQuery: true,
 });
 
 const emit = defineEmits<{
@@ -161,6 +175,25 @@ async function openSource(source: PDFSource | PDFSourceWithOptions | PDFDocument
   }
 }
 
+//When the component is updated, we need to fix the viewer because sometimes the css variables are not applied correctly
+const fixViewer = () => {
+  // We need to mimic the #updateContainerHeightCss because is a private method
+  if (!pdfApp.value) {
+    return;
+  }
+
+  try {
+    const pdfAppViewer = pdfApp.value.pdfViewer;
+    const containerHeight = pdfAppViewer.container.clientHeight;
+
+    if (containerHeight !== pdfAppViewer.previousContainerHeight) {
+      container.value?.style.setProperty("--viewer-container-height", `${containerHeight}px`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 watch(() => props.source, async (source) => {
   await openSource(source);
 })
@@ -172,9 +205,23 @@ onMounted(async () => {
     await openSource(props.source);
 })
 
+onUpdated(async () => {
+  //Wait for the next tick to fix the viewer
+  nextTick(() => {
+    fixViewer();
+  })
+})
+
 onUnmounted(async () => {
-  if (pdfApp.value)
-    await pdfApp.value.close();
+  if (!pdfApp.value) {
+    return;
+  }
+
+  // Unbind events
+  pdfApp.value.unbindEvents();
+  pdfApp.value.unbindWindowEvents();
+
+  await pdfApp.value.close();
 })
 
 defineExpose({
@@ -187,7 +234,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="vue-pdfjs">
+  <div class="vue-pdfjs" :class="{ 'vue-pdfjs--container-query': props.useContainerQuery }">
     <div class="appContainer" ref="container" id="appContainer">
       <OuterContainer />
       <PrintContainer />

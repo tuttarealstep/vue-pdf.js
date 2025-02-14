@@ -25,4 +25,50 @@
     [hidden] {
         display: none !important;
     }
+
+    &--container-query {
+
+        .appContainer {
+            container-name: app-container;
+            container-type: inline-size;
+        }
+
+        @container app-container (max-width: 840px) {
+            #sidebarContainer {
+                background-color: var(--sidebar-narrow-bg-color);
+            }
+
+            #outerContainer.sidebarOpen #viewerContainer {
+                inset-inline-start: 0 !important;
+            }
+        }
+
+        @container app-container (max-width: 750px) {
+            .hiddenMediumView {
+                display: none !important;
+            }
+
+            .visibleMediumView:not(.hidden, [hidden]) {
+                display: inline-block !important;
+            }
+        }
+
+        @container app-container (max-width: 690px) {
+
+            .hiddenSmallView,
+            .hiddenSmallView * {
+                display: none !important;
+            }
+
+            #toolbarContainer #toolbarViewer .toolbarButtonSpacer {
+                width: 0;
+            }
+        }
+
+        @container app-container (max-width: 560px) {
+            #scaleSelectContainer {
+                display: none;
+            }
+        }
+    }
 }

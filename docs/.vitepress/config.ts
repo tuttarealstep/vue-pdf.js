@@ -29,6 +29,7 @@ export default defineConfig({
         text: "Introduction",
         items: [
           { text: "Getting Started", link: "/guide/getting-started" },
+          { text: "Props", link: "/guide/props" },
           { text: "Composables", link: "/guide/composables" },
         ],
       },

@@ -10,6 +10,8 @@ const vuepdfjs = useTemplateRef<typeof VuePDFjs>('vuepdfjs')
 const pages = ref(0);
 const hideToolbar = ref(false);
 const hideSidebar = ref(false);
+const useContainerQuery = ref(false)
+const playgroundWidth = ref(100)
 
 const options = reactive<NonNullable<VuePDFjsProps['options']>>({
     locale: {
@@ -76,24 +78,33 @@ const onPdfAppLoaded = () => {
 }
 
 const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compressed.tracemonkey-pldi-09.pdf'
+const source = ref(pdf)
 </script>
 
 <template>
     We have {{ pages }} pages in this document.
 
-    <div>
+    <div style="margin-bottom: 10px;">
         <input type="checkbox" v-model="hideToolbar" /> Hide Toolbar
         <input type="checkbox" v-model="hideSidebar" /> Hide Sidebar
-        <button type="button" class="custom-button">
+        <button type="button" class="custom-button" @click="source = `invalid${new Date().getTime()}.pdf`">
             Load Invalid PDF
         </button>
+        <input type="checkbox" v-model="useContainerQuery" /> Use container query
+        <div>
+            <label>Playground Width: {{ playgroundWidth }}%</label>
+            <input type="range" v-model="playgroundWidth" min="0" max="100" />
+        </div>
     </div>
-    <VuePDFjs ref="vuepdfjs" :source="pdf" :options="options" :source-options="sourceOptions"
-        @pdf-app:loaded="onPdfAppLoaded" />
+    <div id="playground-container" :style="{ width: playgroundWidth + '%' }">
+        <VuePDFjs ref="vuepdfjs" :source :options="options" :source-options="sourceOptions" :use-container-query
+            @pdf-app:loaded="onPdfAppLoaded" />
+    </div>
 </template>
 
 <style>
-.pdf_viewer {
+.pdf_viewer,
+#playground-container {
     height: 650px;
     width: 100%;
     overflow: hidden;
@@ -108,5 +119,9 @@ const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compr
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
 }
 </style>
