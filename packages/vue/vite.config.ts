@@ -68,7 +68,9 @@ export default defineConfig({
           import.meta.url
         )
       ),
-
+      'display-wasm_factory': fileURLToPath(
+        new URL('../../node_modules/pdf.js/src/display/wasm_factory.js', import.meta.url)
+      ),
       'display-fetch_stream': fileURLToPath(
         new URL('../../node_modules/pdf.js/src/display/fetch_stream.js', import.meta.url)
       ),
@@ -135,6 +137,9 @@ export default defineConfig({
       ),
       'web-secondary_toolbar': fileURLToPath(
         new URL('../../node_modules/pdf.js/web/secondary_toolbar.js', import.meta.url)
+      ),
+      'web-signature_manager': fileURLToPath(
+        new URL('../../node_modules/pdf.js/web/signature_manager.js', import.meta.url)
       ),
       'web-toolbar': fileURLToPath(
         new URL('../../node_modules/pdf.js/web/toolbar.js', import.meta.url)
