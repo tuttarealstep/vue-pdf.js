@@ -25,12 +25,20 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {
-        text: "Introduction",
+      {        text: "Introduction",
         items: [
           { text: "Getting Started", link: "/guide/getting-started" },
           { text: "Props", link: "/guide/props" },
+          { text: "Events", link: "/guide/events" },
+          { text: "Slots", link: "/guide/slots" },
           { text: "Composables", link: "/guide/composables" },
+        ],
+      },      {
+        text: "Customization",
+        items: [
+          { text: "Customization Options", link: "/guide/customization" },
+          { text: "API Reference", link: "/guide/api-reference" },
+          { text: "Advanced Usage", link: "/guide/advanced-usage" },
         ],
       },
       {
@@ -39,10 +47,15 @@ export default defineConfig({
           { text: "Basic Examples", link: "/examples/basic-examples" },
           { text: "Usage with Nuxt", link: "/examples/nuxt-example" },
         ],
-      },
-      {
-        text: "Playground",
-        link: "/playground",
+      },      {
+        text: "Interactive Demos",
+        items: [
+          { text: "Playground", link: "/playground" },
+          { text: "Events Demo", link: "/events-demo" },
+          { text: "Customization Demo", link: "/customization-demo" },
+          { text: "Slots Demo", link: "/slots-demo" },
+          { text: "API Reference Demo", link: "/api-reference-demo" },
+        ]
       },
     ],
 

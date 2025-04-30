@@ -86,8 +86,6 @@ async function init() {
     throw new Error('Container not found');
   }
 
-  isLoading.value = false;
-
   try {
     if (props.options?.locale) {
       if (!props.options.locale.code) {
@@ -113,7 +111,9 @@ async function init() {
       }
     ) => {
       loadDocumentInfo(event.source.pdfDocument);
-    })
+      // Ensure loading state is false when document is loaded
+      isLoading.value = false;
+    });
 
     emit('pdf-app:loaded');
   } catch (error: unknown) {
@@ -122,9 +122,10 @@ async function init() {
     if (props.sourceOptions?.onError) {
       props.sourceOptions.onError(error);
     }
-  }
 
-  isLoading.value = false;
+    // Set loading to false in case of error
+    isLoading.value = false;
+  }
 }
 
 function clearCacheTimeout() {
@@ -148,6 +149,7 @@ async function initDocument(document: PDFDocumentProxy | null) {
 }
 
 async function openSource(source: PDFSource | PDFSourceWithOptions | PDFDocumentProxy) {
+  // isLoading is now managed by the watcher
   try {
     if (source !== undefined && source !== null) {
       if (source instanceof PDFDocumentProxy) {
@@ -195,8 +197,16 @@ const fixViewer = () => {
 }
 
 watch(() => props.source, async (source) => {
+  // Always reset loading state when source changes (including to null)
+  isLoading.value = true;
+
+  // If the source is null, we'll show loading but no need to try to process it
+  if (source === null || source === undefined) {
+    return;
+  }
+
   await openSource(source);
-})
+}, { immediate: true })
 
 onMounted(async () => {
   await init();
@@ -239,7 +249,8 @@ defineExpose({
       <OuterContainer />
       <PrintContainer />
     </div>
-    <div v-show="isLoading" style="position: absolute;">
+    <div v-show="isLoading"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 999;">
       <slot name="loading">
         <div class="loading">Loading...</div>
       </slot>

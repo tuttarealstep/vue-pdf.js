@@ -1,0 +1,36 @@
+/* Common styles for demo containers */
+.vp-doc .demo-container {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+/* Fix for PDF viewer in light mode */
+.vue-pdfjs {
+  --pdfjs-text-layer-color: var(--vp-c-text-1);
+  --pdfjs-annotation-layer-color: var(--vp-c-text-1);
+}
+
+/* Apply custom styling to PDF viewer in dark mode */
+.dark .vue-pdfjs {
+  --pdfjs-text-layer-color: var(--vp-c-text-1) !important;
+  --pdfjs-annotation-layer-color: var(--vp-c-text-1) !important;
+  --pdfjs-bg-color: var(--vp-c-bg) !important;
+  --pdfjs-toolbar-bg-color: var(--vp-c-bg-soft) !important;
+  --pdfjs-sidebar-bg-color: var(--vp-c-bg-soft) !important;
+  --pdfjs-border-color: var(--vp-c-divider) !important;
+  
+  /* Fix PDF page background and text in dark mode */
+  --pdfjs-document-bg-color: #ffffff !important; /* Keep PDF pages white */
+  --pdfjs-document-text-color: #000000 !important; /* Keep PDF text black */
+}
+
+/* Ensure inputs and controls are visible in dark mode */
+.dark input[type="text"],
+.dark input[type="number"],
+.dark input[type="range"] {
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  border-color: var(--vp-c-divider);
+}

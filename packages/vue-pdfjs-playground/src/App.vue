@@ -22,7 +22,7 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
   toolbar: {
     visible: true,
     options: {
-      sidebarToggle: false,
+      sidebarToggleButton: false,
       /*secondaryOpenFile: false,
       secondaryDownload: false,
       secondaryPrint: false,
@@ -43,7 +43,7 @@ watchEffect(() => {
 
     options.toolbar.options = {
       ...options.toolbar.options,
-      sidebarToggle: !hideSidebar.value
+      sidebarToggleButton: !hideSidebar.value
     }
   }
 

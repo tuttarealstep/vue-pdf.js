@@ -1,12 +1,39 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, watch, onMounted } from 'vue'
 
 export interface SidebarContainerProps {
     visible?: boolean;
+    options?: {
+        // View buttons
+        viewThumbnail?: boolean;
+        viewOutline?: boolean;
+        viewAttachments?: boolean;
+        viewLayers?: boolean;
+
+        // Current outline item
+        currentOutlineItem?: boolean;
+    }
 }
 
 const props = defineProps<SidebarContainerProps>()
 
+function updateSidebarVisibility(options?: SidebarContainerProps['options']) {
+    if (!options) return;
+    for (const [key, value] of Object.entries(options)) {
+        const el = document.getElementById(key);
+        if (el) {
+            el.style.display = value === false ? 'none' : '';
+        }
+    }
+}
+
+onMounted(() => {
+    updateSidebarVisibility(props.options);
+});
+
+watch(() => props.options, (newOptions: SidebarContainerProps['options']) => {
+    updateSidebarVisibility(newOptions);
+}, { deep: true });
 </script>
 
 <template>
@@ -14,26 +41,24 @@ const props = defineProps<SidebarContainerProps>()
         <div id="toolbarSidebar" class="toolbarHorizontalGroup">
             <div id="toolbarSidebarLeft">
                 <div id="sidebarViewButtons" class="toolbarHorizontalGroup toggled" role="radiogroup">
-                    <button id="viewThumbnail" class="toolbarButton toggled" type="button" title="Show Thumbnails"
-                        tabindex="0" data-l10n-id="pdfjs-thumbs-button" role="radio" aria-checked="true"
+                    <button id="viewThumbnail" class="toolbarButton toggled" type="button" tabindex="0"
+                        data-l10n-id="pdfjs-thumbs-button" role="radio" aria-checked="true"
                         aria-controls="thumbnailView">
-                        <span data-l10n-id="pdfjs-thumbs-button-label">Thumbnails</span>
+                        <span data-l10n-id="pdfjs-thumbs-button-label"></span>
                     </button>
-                    <button id="viewOutline" class="toolbarButton" type="button"
-                        title="Show Document Outline (double-click to expand/collapse all items)" tabindex="0"
+                    <button id="viewOutline" class="toolbarButton" type="button" tabindex="0"
                         data-l10n-id="pdfjs-document-outline-button" role="radio" aria-checked="false"
                         aria-controls="outlineView">
-                        <span data-l10n-id="pdfjs-document-outline-button-label">Document Outline</span>
+                        <span data-l10n-id="pdfjs-document-outline-button-label"></span>
                     </button>
-                    <button id="viewAttachments" class="toolbarButton" type="button" title="Show Attachments"
-                        tabindex="0" data-l10n-id="pdfjs-attachments-button" role="radio" aria-checked="false"
+                    <button id="viewAttachments" class="toolbarButton" type="button" tabindex="0"
+                        data-l10n-id="pdfjs-attachments-button" role="radio" aria-checked="false"
                         aria-controls="attachmentsView">
-                        <span data-l10n-id="pdfjs-attachments-button-label">Attachments</span>
+                        <span data-l10n-id="pdfjs-attachments-button-label"></span>
                     </button>
-                    <button id="viewLayers" class="toolbarButton" type="button"
-                        title="Show Layers (double-click to reset all layers to the default state)" tabindex="0"
+                    <button id="viewLayers" class="toolbarButton" type="button" tabindex="0"
                         data-l10n-id="pdfjs-layers-button" role="radio" aria-checked="false" aria-controls="layersView">
-                        <span data-l10n-id="pdfjs-layers-button-label">Layers</span>
+                        <span data-l10n-id="pdfjs-layers-button-label"></span>
                     </button>
                 </div>
             </div>
@@ -42,9 +67,9 @@ const props = defineProps<SidebarContainerProps>()
                 <div id="outlineOptionsContainer" class="toolbarHorizontalGroup">
                     <div class="verticalToolbarSeparator"></div>
 
-                    <button id="currentOutlineItem" class="toolbarButton" type="button" disabled
-                        title="Find Current Outline Item" tabindex="0" data-l10n-id="pdfjs-current-outline-item-button">
-                        <span data-l10n-id="pdfjs-current-outline-item-button-label">Current Outline Item</span>
+                    <button id="currentOutlineItem" class="toolbarButton" type="button" disabled tabindex="0"
+                        data-l10n-id="pdfjs-current-outline-item-button">
+                        <span data-l10n-id="pdfjs-current-outline-item-button-label"></span>
                     </button>
                 </div>
             </div>

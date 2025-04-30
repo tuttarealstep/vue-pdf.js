@@ -21,7 +21,7 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
     toolbar: {
         visible: true,
         options: {
-            sidebarToggle: true,
+            sidebarToggleButton: true,
         }
     },
     sidebar: {
@@ -43,7 +43,7 @@ watchEffect(() => {
         options.toolbar.visible = !hideToolbar.value
         options.toolbar.options = {
             ...options.toolbar.options,
-            sidebarToggle: !hideSidebar.value
+            sidebarToggleButton: !hideSidebar.value
         }
     }
 
@@ -77,7 +77,7 @@ const onPdfAppLoaded = () => {
     vuepdfjs.value.pdfApp.eventBus.on('documenterror', onErrorHandler)
 }
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v4.10.38/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.2.133/web/compressed.tracemonkey-pldi-09.pdf'
 const source = ref(pdf)
 </script>
 
