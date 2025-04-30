@@ -35,6 +35,8 @@ export default (rootElement: ShadowRoot | Document) => {
       editorStampParamsToolbar: getElement(
         "editorStampParamsToolbar"
       ),
+      editorSignatureButton: getElement("editorSignatureButton"),
+      editorSignatureParamsToolbar: getElement("editorSignatureParamsToolbar"),
       download: getElement("downloadButton"),
     },
     secondaryToolbar: {
@@ -174,6 +176,36 @@ export default (rootElement: ShadowRoot | Document) => {
       ),
       closeButton: getElement("altTextSettingsCloseButton"),
     },
+    addSignatureDialog: {
+      dialog: getElement("addSignatureDialog"),
+      panels: getElement("addSignatureActionContainer"),
+      typeButton: getElement("addSignatureTypeButton"),
+      typeInput: getElement("addSignatureTypeInput"),
+      drawButton: getElement("addSignatureDrawButton"),
+      drawSVG: getElement("addSignatureDraw"),
+      drawPlaceholder: getElement("addSignatureDrawPlaceholder"),
+      drawThickness: getElement("addSignatureDrawThickness"),
+      imageButton: getElement("addSignatureImageButton"),
+      imageSVG: getElement("addSignatureImage"),
+      imagePlaceholder: getElement("addSignatureImagePlaceholder"),
+      imagePicker: getElement("addSignatureFilePicker"),
+      imagePickerLink: getElement("addSignatureImageBrowse"),
+      description: getElement("addSignatureDescription"),
+      clearButton: getElement("clearSignatureButton"),
+      saveContainer: getElement("addSignatureSaveContainer"),
+      saveCheckbox: getElement("addSignatureSaveCheckbox"),
+      errorBar: getElement("addSignatureError"),
+      errorCloseButton: getElement("addSignatureErrorCloseButton"),
+      cancelButton: getElement("addSignatureCancelButton"),
+      addButton: getElement("addSignatureAddButton"),
+    },
+    editSignatureDialog: {
+      dialog: getElement("editSignatureDescriptionDialog"),
+      description: getElement("editSignatureDescription"),
+      editSignatureView: getElement("editSignatureView"),
+      cancelButton: getElement("editSignatureCancelButton"),
+      updateButton: getElement("editSignatureUpdateButton"),
+    },
     annotationEditorParams: {
       editorFreeTextFontSize: getElement("editorFreeTextFontSize"),
       editorFreeTextColor: getElement("editorFreeTextColor"),
@@ -181,6 +213,7 @@ export default (rootElement: ShadowRoot | Document) => {
       editorInkThickness: getElement("editorInkThickness"),
       editorInkOpacity: getElement("editorInkOpacity"),
       editorStampAddImage: getElement("editorStampAddImage"),
+      editorSignatureAddSignature: getElement("editorSignatureAddSignature"),
       editorFreeHighlightThickness: getElement(
         "editorFreeHighlightThickness"
       ),

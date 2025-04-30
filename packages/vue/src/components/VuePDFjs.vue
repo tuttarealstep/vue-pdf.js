@@ -149,7 +149,11 @@ async function initDocument(document: PDFDocumentProxy | null) {
 }
 
 async function openSource(source: PDFSource | PDFSourceWithOptions | PDFDocumentProxy) {
-  // isLoading is now managed by the watcher
+
+  if (!pdfApp.value) {
+    return;
+  }
+
   try {
     if (source !== undefined && source !== null) {
       if (source instanceof PDFDocumentProxy) {
