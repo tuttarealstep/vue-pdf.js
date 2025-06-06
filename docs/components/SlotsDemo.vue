@@ -32,7 +32,7 @@ function loadPdf() {
     // Add artificial delay to show loading indicator
     setTimeout(() => {
         // Imposta l'URL del PDF dopo il ritardo
-        pdf.value = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.2.133/web/compressed.tracemonkey-pldi-09.pdf'
+        pdf.value = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.3.31/web/compressed.tracemonkey-pldi-09.pdf'
     }, loadingDelay.value * 1000)
 }
 

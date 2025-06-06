@@ -77,7 +77,7 @@ const onPdfAppLoaded = () => {
     vuepdfjs.value.pdfApp.eventBus.on('documenterror', onErrorHandler)
 }
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.2.133/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.3.31/web/compressed.tracemonkey-pldi-09.pdf'
 const source = ref(pdf)
 </script>
 

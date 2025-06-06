@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import llmstxt from 'vitepress-plugin-llms'
 import { version } from "../../packages/vue/package.json";
 
 // https://vitepress.dev/reference/site-config
@@ -25,7 +26,8 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {        text: "Introduction",
+      {
+        text: "Introduction",
         items: [
           { text: "Getting Started", link: "/guide/getting-started" },
           { text: "Props", link: "/guide/props" },
@@ -33,7 +35,7 @@ export default defineConfig({
           { text: "Slots", link: "/guide/slots" },
           { text: "Composables", link: "/guide/composables" },
         ],
-      },      {
+      }, {
         text: "Customization",
         items: [
           { text: "Customization Options", link: "/guide/customization" },
@@ -47,7 +49,7 @@ export default defineConfig({
           { text: "Basic Examples", link: "/examples/basic-examples" },
           { text: "Usage with Nuxt", link: "/examples/nuxt-example" },
         ],
-      },      {
+      }, {
         text: "Interactive Demos",
         items: [
           { text: "Playground", link: "/playground" },
@@ -67,4 +69,7 @@ export default defineConfig({
       },
     ],
   },
+  vite: {
+    plugins: [llmstxt()]
+  }
 });
