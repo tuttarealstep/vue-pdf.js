@@ -250,6 +250,7 @@ defineExpose({
 <template>
   <div class="vue-pdfjs" :class="{ 'vue-pdfjs--container-query': props.useContainerQuery }">
     <div class="appContainer" ref="container" id="appContainer">
+      <span id="viewer-alert" class="visuallyHidden" role="alert"></span>
       <OuterContainer />
       <PrintContainer />
     </div>

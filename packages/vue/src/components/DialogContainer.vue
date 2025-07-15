@@ -314,7 +314,7 @@
                                     data-l10n-id="pdfjs-editor-add-signature-clear-button-label"></span></button>
                         </div>
                         <div id="addSignatureSaveContainer">
-                            <input type="checkbox" id="addSignatureSaveCheckbox" checked="true"></input>
+                            <input type="checkbox" id="addSignatureSaveCheckbox"></input>
                             <label for="addSignatureSaveCheckbox"
                                 data-l10n-id="pdfjs-editor-add-signature-save-checkbox"></label>
                             <span></span>

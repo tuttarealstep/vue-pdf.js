@@ -7,6 +7,7 @@ export default (rootElement: ShadowRoot | Document) => {
     principalContainer: getElement("mainContainer"),
     mainContainer: getElement("viewerContainer"),
     viewerContainer: getElement("viewer"),
+    viewerAlert: getElement("viewer-alert"),
     toolbar: {
       container: getElement("toolbarContainer"),
       numPages: getElement("numPages"),
