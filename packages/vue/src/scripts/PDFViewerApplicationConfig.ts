@@ -196,6 +196,8 @@ export default (rootElement: ShadowRoot | Document) => {
       saveContainer: getElement("addSignatureSaveContainer"),
       saveCheckbox: getElement("addSignatureSaveCheckbox"),
       errorBar: getElement("addSignatureError"),
+      errorTitle: getElement("addSignatureErrorTitle"),
+      errorDescription: getElement("addSignatureErrorDescription"),
       errorCloseButton: getElement("addSignatureErrorCloseButton"),
       cancelButton: getElement("addSignatureCancelButton"),
       addButton: getElement("addSignatureAddButton"),
@@ -221,5 +223,24 @@ export default (rootElement: ShadowRoot | Document) => {
       editorHighlightShowAll: getElement("editorHighlightShowAll"),
     },
     printContainer: getElement("printContainer"),
+    editorUndoBar: {
+      container: getElement("editorUndoBar"),
+      message: getElement("editorUndoBarMessage"),
+      undoButton: getElement("editorUndoBarUndoButton"),
+      closeButton: getElement("editorUndoBarCloseButton"),
+    },
+    editCommentDialog: {
+      dialog: getElement("commentManagerDialog"),
+      toolbar: getElement("commentManagerToolbar"),
+      actions: getElement("commentActionsButton"),
+      menu: getElement("commentActionsMenu"),
+      editMenuItem: getElement("commentActionsEditButton"),
+      deleteMenuItem: getElement("commentActionsDeleteButton"),
+      closeButton: getElement("commentCloseButton"),
+      textInput: getElement("commentManagerTextInput"),
+      textView: getElement("commentManagerTextView"),
+      cancelButton: getElement("commentManagerCancelButton"),
+      saveButton: getElement("commentManagerSaveButton"),
+    },
   };
 }

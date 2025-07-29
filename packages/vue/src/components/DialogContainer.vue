@@ -325,9 +325,9 @@
                     <div id="addSignatureError" hidden="true" class="messageBar">
                         <div>
                             <div>
-                                <span class="title"
+                                <span id="addSignatureErrorTitle" class="title"
                                     data-l10n-id="pdfjs-editor-add-signature-image-upload-error-title"></span>
-                                <span class="description"
+                                <span id="addSignatureErrorDescription" class="description"
                                     data-l10n-id="pdfjs-editor-add-signature-image-upload-error-description"></span>
                             </div>
                             <button id="addSignatureErrorCloseButton" class="closeButton" type="button"
@@ -369,6 +369,41 @@
                             data-l10n-id="pdfjs-editor-add-signature-cancel-button"></span></button>
                     <button id="editSignatureUpdateButton" type="button" class="primaryButton" disabled
                         tabindex="0"><span data-l10n-id="pdfjs-editor-edit-signature-update-button"></span></button>
+                </div>
+            </div>
+        </dialog>
+
+        <dialog class="dialog commentManager" id="commentManagerDialog">
+            <div class="mainContainer">
+                <div id="commentManagerToolbar">
+                    <button id="commentActionsButton" class="toolbarButton" type="button" aria-expanded="false"
+                        aria-haspopup="true" aria-controls="commentActionsMenu" tabindex="0"
+                        data-l10n-id="pdfjs-editor-edit-comment-actions-button">
+                        <span data-l10n-id="pdfjs-editor-edit-comment-actions-button-label"></span>
+                    </button>
+                    <menu class="hidden" role="menu" id="commentActionsMenu">
+                        <button id="commentActionsEditButton" role="menuitem" type="button" tabindex="0">
+                            <span data-l10n-id="pdfjs-editor-edit-comment-actions-edit-button-label"></span>
+                        </button>
+                        <button id="commentActionsDeleteButton" role="menuitem" type="button" tabindex="0">
+                            <span data-l10n-id="pdfjs-editor-edit-comment-actions-delete-button-label"></span>
+                        </button>
+                    </menu>
+                    <button id="commentCloseButton" class="toolbarButton" type="button" tabindex="0"
+                        data-l10n-id="pdfjs-editor-edit-comment-close-button">
+                        <span data-l10n-id="pdfjs-editor-edit-comment-close-button-label"></span>
+                    </button>
+                </div>
+                <textarea class="hidden" id="commentManagerTextInput"
+                    data-l10n-id="pdfjs-editor-edit-comment-manager-text-input"></textarea>
+                <div class="hidden" id="commentManagerTextView"></div>
+                <div class="dialogButtonsGroup">
+                    <button id="commentManagerCancelButton" type="button" class="secondaryButton" tabindex="0">
+                        <span data-l10n-id="pdfjs-editor-edit-comment-manager-cancel-button"></span>
+                    </button>
+                    <button id="commentManagerSaveButton" type="button" class="primaryButton" disabled tabindex="0">
+                        <span data-l10n-id="pdfjs-editor-edit-comment-manager-save-button"></span>
+                    </button>
                 </div>
             </div>
         </dialog>

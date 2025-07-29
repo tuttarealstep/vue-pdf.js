@@ -134,7 +134,7 @@ const patchViewerCss = () => {
 
     const patchedContent = fileContent.replace(/html,\s+body\s+{/, '/* @@patchViewerCss \nhtml,\nbody {')
         .replace(/.hidden,\s+\[hidden\]\s+{\s+display:\s+none\s+!important;\s+}/,
-            '.hidden,\n[hidden] {\n  display: none !important;\n} */')
+            '/* .hidden,\n[hidden] {\n  display: none !important;\n} */')
 
     fs.writeFileSync(filePath, patchedContent)
 

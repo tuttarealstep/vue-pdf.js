@@ -10,6 +10,8 @@ const sidebarOptions = inject<SidebarContainerProps>(sidebarOptionsKey)
 
 <template>
     <div id="outerContainer">
+        <span id="viewer-alert" class="visuallyHidden" role="alert"></span>
+
         <SidebarContainer :visible="sidebarOptions?.visible" />
         <MainContainer />
         <DialogContainer />
