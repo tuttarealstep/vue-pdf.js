@@ -13,7 +13,10 @@
     "pdf",
     "vue-pdf",
     "pdf-viewer",
-    "pdf.js"
+    "pdf.js",
+    "vue pdf",
+    "pdf viewer",
+    "pdfjs vue"
   ],
   "homepage": "https://github.com/tuttarealstep/vue-pdf.js",
   "repository": {
