@@ -1,4 +1,4 @@
-# vue-pdfjs [![NPM Version](https://img.shields.io/npm/v/%40tuttarealstep%2Fvue-pdf.js)](https://www.npmjs.com/package/@tuttarealstep/vue-pdf.js)
+# vue-pdfjs [![NPM Version](https://img.shields.io/npm/v/%40tuttarealstep%2Fvue-pdf.js)](https://www.npmjs.com/package/@tuttarealstep/vue-pdf.js) [![MadeWithVueJs.com shield](https://madewithvuejs.com/storage/repo-shields/5902-shield.svg)](https://madewithvuejs.com/p/vue-pdfjs/shield-link)
 
 `vue-pdfjs` is a Vue 3 component for displaying PDF files using the standard `pdf.js` viewer. This package provides a simple and powerful integration to embed PDF viewers in Vue applications.
 

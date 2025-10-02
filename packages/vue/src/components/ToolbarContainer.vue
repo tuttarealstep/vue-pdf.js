@@ -47,21 +47,21 @@ export interface ToolbarContainerProps {
 const props = defineProps<ToolbarContainerProps>()
 
 function updateToolbarVisibility(options?: Record<string, boolean>) {
-  if (!options) return;
-  for (const [key, value] of Object.entries(options)) {
-    const el = document.getElementById(key);
-    if (el) {
-      el.style.display = value === false ? 'none' : '';
+    if (!options) return;
+    for (const [key, value] of Object.entries(options)) {
+        const el = document.getElementById(key);
+        if (el) {
+            el.style.display = value === false ? 'none' : '';
+        }
     }
-  }
 }
 
 onMounted(() => {
-  updateToolbarVisibility(props.options);
+    updateToolbarVisibility(props.options);
 });
 
 watch(() => props.options, (newOptions: Record<string, boolean> | undefined) => {
-  updateToolbarVisibility(newOptions);
+    updateToolbarVisibility(newOptions);
 }, { deep: true });
 
 </script>
@@ -198,6 +198,32 @@ watch(() => props.options, (newOptions: Record<string, boolean> | undefined) => 
                 </div>
                 <div id="toolbarViewerRight" class="toolbarHorizontalGroup">
                     <div id="editorModeButtons" class="toolbarHorizontalGroup" role="radiogroup">
+                        <div id="editorComment" class="toolbarButtonWithContainer" hidden="true">
+                            <button id="editorCommentButton" class="toolbarButton" type="button" tabindex="0" disabled
+                                role="radio" aria-expanded="false" aria-haspopup="true"
+                                aria-controls="editorCommentParamsToolbar" data-l10n-id="pdfjs-editor-comment-button">
+                                <span data-l10n-id="pdfjs-editor-comment-button-label"></span>
+                            </button>
+                            <div class="editorParamsToolbar sidebar hidden menu" id="editorCommentParamsToolbar">
+                                <div id="editorCommentsSidebar" class="menuContainer" role="landmark"
+                                    aria-labelledby="editorCommentsSidebarHeader">
+                                    <div id="editorCommentsSidebarHeader" role="heading" aria-level="2">
+                                        <span class="commentCount">
+                                            <span id="editorCommentsSidebarTitle"
+                                                data-l10n-id="pdfjs-editor-comments-sidebar-title"
+                                                data-l10n-args='{ "count": 0 }'></span>
+                                            <span id="editorCommentsSidebarCount"></span>
+                                        </span>
+                                        <button id="editorCommentsSidebarCloseButton" type="button" tabindex="0"
+                                            data-l10n-id="pdfjs-editor-comments-sidebar-close-button">
+                                            <span
+                                                data-l10n-id="pdfjs-editor-comments-sidebar-close-button-label"></span>
+                                        </button>
+                                    </div>
+                                    <ul id="editorCommentsSidebarList"></ul>
+                                </div>
+                            </div>
+                        </div>
                         <div id="editorSignature" class="toolbarButtonWithContainer" hidden="true">
                             <button id="editorSignatureButton" class="toolbarButton" type="button" tabindex="0"
                                 :disabled="true" role="radio" aria-expanded="false" aria-haspopup="true"
@@ -463,7 +489,8 @@ watch(() => props.options, (newOptions: Record<string, boolean> | undefined) => 
                                     </button>
                                 </div>
 
-                                <div id="imageAltTextSettingsSeparator" class="horizontalToolbarSeparator hidden"></div>
+                                <div id="imageAltTextSettingsSeparator" class="horizontalToolbarSeparator hidden">
+                                </div>
                                 <button id="imageAltTextSettings" type="button" class="toolbarButton labeled hidden"
                                     tabindex="0" data-l10n-id="pdfjs-image-alt-text-settings-button"
                                     aria-controls="altTextSettingsDialog">

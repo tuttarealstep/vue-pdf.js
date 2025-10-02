@@ -138,7 +138,7 @@ function rotateClockwise() {
     vuepdfjs.value.pdfApp.eventBus.dispatch("rotatecw")
 }
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.54/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.149/web/compressed.tracemonkey-pldi-09.pdf'
 </script>
 
 <template>
