@@ -373,36 +373,20 @@
             </div>
         </dialog>
 
-        <dialog class="dialog commentManager" id="commentManagerDialog">
+        <dialog class="dialog commentManager" id="commentManagerDialog" aria-labelledby="commentManagerTitle">
             <div class="mainContainer">
-                <div id="commentManagerToolbar">
-                    <button id="commentActionsButton" class="toolbarButton" type="button" aria-expanded="false"
-                        aria-haspopup="true" aria-controls="commentActionsMenu" tabindex="0"
-                        data-l10n-id="pdfjs-editor-edit-comment-actions-button">
-                        <span data-l10n-id="pdfjs-editor-edit-comment-actions-button-label"></span>
-                    </button>
-                    <menu class="hidden" role="menu" id="commentActionsMenu">
-                        <button id="commentActionsEditButton" role="menuitem" type="button" tabindex="0">
-                            <span data-l10n-id="pdfjs-editor-edit-comment-actions-edit-button-label"></span>
-                        </button>
-                        <button id="commentActionsDeleteButton" role="menuitem" type="button" tabindex="0">
-                            <span data-l10n-id="pdfjs-editor-edit-comment-actions-delete-button-label"></span>
-                        </button>
-                    </menu>
-                    <button id="commentCloseButton" class="toolbarButton" type="button" tabindex="0"
-                        data-l10n-id="pdfjs-editor-edit-comment-close-button">
-                        <span data-l10n-id="pdfjs-editor-edit-comment-close-button-label"></span>
-                    </button>
+                <div class="title" id="commentManagerToolbar">
+                    <span id="commentManagerTitle" role="sectionhead"
+                        data-l10n-id="pdfjs-editor-edit-comment-dialog-title-when-adding"></span>
                 </div>
-                <textarea class="hidden" id="commentManagerTextInput"
-                    data-l10n-id="pdfjs-editor-edit-comment-manager-text-input"></textarea>
-                <div class="hidden" id="commentManagerTextView"></div>
+                <textarea id="commentManagerTextInput" data-l10n-id="pdfjs-editor-edit-comment-dialog-text-input"
+                    tabindex="0"></textarea>
                 <div class="dialogButtonsGroup">
                     <button id="commentManagerCancelButton" type="button" class="secondaryButton" tabindex="0">
-                        <span data-l10n-id="pdfjs-editor-edit-comment-manager-cancel-button"></span>
+                        <span data-l10n-id="pdfjs-editor-edit-comment-dialog-cancel-button"></span>
                     </button>
                     <button id="commentManagerSaveButton" type="button" class="primaryButton" disabled tabindex="0">
-                        <span data-l10n-id="pdfjs-editor-edit-comment-manager-save-button"></span>
+                        <span data-l10n-id="pdfjs-editor-edit-comment-dialog-save-button-when-adding"></span>
                     </button>
                 </div>
             </div>

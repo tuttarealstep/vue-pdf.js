@@ -192,6 +192,7 @@ export default (rootElement: ShadowRoot | Document) => {
       editorCommentsSidebarTitle: getElement('editorCommentsSidebarTitle'),
       editorCommentsSidebarCloseButton: getElement('editorCommentsSidebarCloseButton'),
       editorCommentsSidebarList: getElement('editorCommentsSidebarList'),
+      editorCommentsSidebarResizer: getElement('editorCommentsSidebarResizer'),
       editorFreeTextFontSize: getElement('editorFreeTextFontSize'),
       editorFreeTextColor: getElement('editorFreeTextColor'),
       editorInkColor: getElement('editorInkColor'),
@@ -212,13 +213,8 @@ export default (rootElement: ShadowRoot | Document) => {
     editCommentDialog: {
       dialog: getElement('commentManagerDialog'),
       toolbar: getElement('commentManagerToolbar'),
-      actions: getElement('commentActionsButton'),
-      menu: getElement('commentActionsMenu'),
-      editMenuItem: getElement('commentActionsEditButton'),
-      deleteMenuItem: getElement('commentActionsDeleteButton'),
-      closeButton: getElement('commentCloseButton'),
+      title: document.getElementById("commentManagerTitle"),
       textInput: getElement('commentManagerTextInput'),
-      textView: getElement('commentManagerTextView'),
       cancelButton: getElement('commentManagerCancelButton'),
       saveButton: getElement('commentManagerSaveButton')
     }
