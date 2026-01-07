@@ -25,4 +25,4 @@
     - **code:** `string` (required) - Locale code.
     - **ftl:** `string` (required) - Locale FTL text.
   - **toolbar:** `ToolbarContainerProps`
-  - **sidebar:** `SidebarContainerProps`
+  - **viewsManager:** `ViewsManagerProps`

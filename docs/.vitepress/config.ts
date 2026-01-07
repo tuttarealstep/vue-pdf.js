@@ -44,6 +44,12 @@ export default defineConfig({
         ],
       },
       {
+        text: "Migration",
+        items: [
+          { text: "Migrating to v2", link: "/guide/migration-v2" },
+        ],
+      },
+      {
         text: "Examples",
         items: [
           { text: "Basic Examples", link: "/examples/basic-examples" },

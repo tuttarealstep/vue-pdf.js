@@ -9,7 +9,7 @@ const vuepdfjs = useTemplateRef<typeof VuePDFjs>('vuepdfjs')
 
 const pages = ref(0);
 const hideToolbar = ref(false);
-const hideSidebar = ref(false);
+const hideViewsManager = ref(false);
 const useContainerQuery = ref(false)
 const playgroundWidth = ref(100)
 
@@ -21,10 +21,10 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
     toolbar: {
         visible: true,
         options: {
-            sidebarToggleButton: true,
+            viewsManagerToggleButton: true,
         }
     },
-    sidebar: {
+    viewsManager: {
         visible: true
     }
 })
@@ -43,12 +43,12 @@ watchEffect(() => {
         options.toolbar.visible = !hideToolbar.value
         options.toolbar.options = {
             ...options.toolbar.options,
-            sidebarToggleButton: !hideSidebar.value
+            viewsManagerToggleButton: !hideViewsManager.value
         }
     }
 
-    if (options.sidebar) {
-        options.sidebar.visible = !hideSidebar.value
+    if (options.viewsManager) {
+        options.viewsManager.visible = !hideViewsManager.value
     }
 })
 
@@ -77,7 +77,7 @@ const onPdfAppLoaded = () => {
     vuepdfjs.value.pdfApp.eventBus.on('documenterror', onErrorHandler)
 }
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.449/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.530/web/compressed.tracemonkey-pldi-09.pdf'
 const source = ref(pdf)
 </script>
 
@@ -86,7 +86,7 @@ const source = ref(pdf)
 
     <div style="margin-bottom: 10px;">
         <input type="checkbox" v-model="hideToolbar" /> Hide Toolbar
-        <input type="checkbox" v-model="hideSidebar" /> Hide Sidebar
+        <input type="checkbox" v-model="hideViewsManager" /> Hide Views Manager
         <button type="button" class="custom-button" @click="source = `invalid${new Date().getTime()}.pdf`">
             Load Invalid PDF
         </button>

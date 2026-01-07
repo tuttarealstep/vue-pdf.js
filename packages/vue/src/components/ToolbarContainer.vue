@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { defineProps, watch, onMounted } from 'vue'
+import { defineProps, watch, onMounted, inject } from 'vue'
+import { ViewsManagerProps } from './ViewsManager.vue';
+import ViewsManager from './ViewsManager.vue';
+import { viewsManagerOptionsKey } from '@/keys';
 
 export interface ToolbarContainerProps {
     visible?: boolean;
@@ -7,7 +10,7 @@ export interface ToolbarContainerProps {
         toolbarViewerLeft?: boolean;
         toolbarViewerMiddle?: boolean;
         toolbarViewerRight?: boolean;
-        sidebarToggleButton?: boolean;
+        viewsManagerToggleButton?: boolean;
         viewFindButton?: boolean;
         previous?: boolean;
         next?: boolean;
@@ -64,6 +67,9 @@ watch(() => props.options, (newOptions: Record<string, boolean> | undefined) => 
     updateToolbarVisibility(newOptions);
 }, { deep: true });
 
+
+const viewsManagerOptions = inject<ViewsManagerProps>(viewsManagerOptionsKey)
+
 </script>
 
 <template>
@@ -71,11 +77,14 @@ watch(() => props.options, (newOptions: Record<string, boolean> | undefined) => 
         <div id="toolbarContainer">
             <div id="toolbarViewer" class="toolbarHorizontalGroup">
                 <div id="toolbarViewerLeft" class="toolbarHorizontalGroup">
-                    <button id="sidebarToggleButton" class="toolbarButton" type="button" tabindex="0"
-                        data-l10n-id="pdfjs-toggle-sidebar-button" aria-expanded="false" aria-haspopup="true"
-                        aria-controls="sidebarContainer">
-                        <span data-l10n-id="pdfjs-toggle-sidebar-button-label"></span>
+                    <button id="viewsManagerToggleButton" class="toolbarButton" type="button" tabindex="0"
+                        data-l10n-id="pdfjs-toggle-views-manager-button" aria-expanded="false" aria-haspopup="true"
+                        aria-controls="viewsManager">
+                        <span data-l10n-id="pdfjs-toggle-views-manager-button-label"></span>
                     </button>
+
+                    <ViewsManager :visible="viewsManagerOptions?.visible" />
+
                     <div class="toolbarButtonSpacer"></div>
                     <div class="toolbarButtonWithContainer">
                         <button id="viewFindButton" class="toolbarButton" type="button" tabindex="0"

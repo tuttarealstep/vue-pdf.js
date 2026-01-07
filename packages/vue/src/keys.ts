@@ -1,2 +1,2 @@
 export const toolbarOptionsKey = Symbol()
-export const sidebarOptionsKey = Symbol()
+export const viewsManagerOptionsKey = Symbol()

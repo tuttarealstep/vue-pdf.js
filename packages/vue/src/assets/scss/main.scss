@@ -8,8 +8,8 @@
         height: 100%;
         width: 100%;
         margin: 0;
-        background-color: var(--body-bg-color);
-        scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg-color);
+        background-color: var(--vue-pdfjs-body-bg-color);
+        scrollbar-color: var(--vue-pdfjs-scrollbar-color) var(--vue-pdfjs-scrollbar-bg-color);
 
         &.wait::before {
             content: "";
@@ -34,8 +34,8 @@
         }
 
         @container app-container (max-width: 840px) {
-            #sidebarContainer {
-                background-color: var(--sidebar-narrow-bg-color);
+            #viewsManager {
+                background-color: var(--vue-pdfjs-sidebar-narrow-bg-color);
             }
 
             #outerContainer.sidebarOpen #viewerContainer {

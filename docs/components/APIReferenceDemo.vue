@@ -167,7 +167,7 @@ function toggleSidebar() {
 
 // New document input
 const newDocUrl = ref('')
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.449/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.530/web/compressed.tracemonkey-pldi-09.pdf'
 const source = ref(pdf)
 
 function resetPdfInfo() {
