@@ -29,7 +29,7 @@ export interface ViewsManagerProps {
 
 const props = defineProps<ViewsManagerProps>()
 
-function updateSidebarVisibility(options?: ViewsManagerProps['options']) {
+function updateViewsManagerVisibility(options?: ViewsManagerProps['options']) {
     if (!options) return;
     for (const [key, value] of Object.entries(options)) {
         const el = document.getElementById(key);
@@ -40,11 +40,11 @@ function updateSidebarVisibility(options?: ViewsManagerProps['options']) {
 }
 
 onMounted(() => {
-    updateSidebarVisibility(props.options);
+    updateViewsManagerVisibility(props.options);
 });
 
 watch(() => props.options, (newOptions: ViewsManagerProps['options']) => {
-    updateSidebarVisibility(newOptions);
+    updateViewsManagerVisibility(newOptions);
 }, { deep: true });
 </script>
 
