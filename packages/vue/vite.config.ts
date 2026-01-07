@@ -123,9 +123,6 @@ export default defineConfig({
       'web-pdf_presentation_mode': fileURLToPath(
         new URL('../../node_modules/pdf.js/web/pdf_presentation_mode.js', import.meta.url)
       ),
-      'web-pdf_sidebar': fileURLToPath(
-        new URL('../../node_modules/pdf.js/web/pdf_sidebar.js', import.meta.url)
-      ),
       'web-pdf_thumbnail_viewer': fileURLToPath(
         new URL('../../node_modules/pdf.js/web/pdf_thumbnail_viewer.js', import.meta.url)
       ),
@@ -143,7 +140,10 @@ export default defineConfig({
       ),
       'web-toolbar': fileURLToPath(
         new URL('../../node_modules/pdf.js/web/toolbar.js', import.meta.url)
-      )
+      ),
+      'web-views_manager': fileURLToPath(
+        new URL('../../node_modules/pdf.js/web/views_manager.js', import.meta.url)
+      ),
     }
   }
 })

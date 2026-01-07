@@ -6,7 +6,57 @@ Version 2.0.0 introduces prefixed CSS variables to prevent conflicts with your a
 
 ## Breaking Changes
 
-### CSS Variables Prefix
+### 1. Options Property Renamed: `sidebar` → `viewsManager`
+
+The `sidebar` property in options has been renamed to `viewsManager` to reflect pdf-js.
+
+**Before (v1.x):**
+```vue
+<script setup>
+import { reactive } from 'vue';
+import { VuePDFjs } from '@tuttarealstep/vue-pdf.js';
+
+const options = reactive({
+  sidebar: {
+    visible: true,
+    options: {
+      viewThumbnail: true,
+      viewOutline: true,
+      viewAttachments: true,
+      viewLayers: true,
+      currentOutlineItem: true
+    }
+  }
+});
+</script>
+```
+
+**After (v2.x):**
+```vue
+<script setup>
+import { reactive } from 'vue';
+import { VuePDFjs } from '@tuttarealstep/vue-pdf.js';
+
+const options = reactive({
+  viewsManager: {
+    visible: true,
+    options: {
+      thumbnailsViewMenu: true,
+      outlinesViewMenu: true,
+      attachmentsViewMenu: true,
+      layersViewMenu: true,
+      thumbnailsView: true,
+      outlinesView: true,
+      attachmentsView: true,
+      layersView: true,
+      viewsManagerCurrentOutlineButton: true
+    }
+  }
+});
+</script>
+```
+
+### 2. CSS Variables Prefix
 
 All CSS variables have been prefixed with `--vue-pdfjs-` to prevent naming conflicts with your application's CSS variables.
 
@@ -40,7 +90,27 @@ All CSS variables have been prefixed with `--vue-pdfjs-` to prevent naming confl
 
 ## Migration Steps
 
-### 1. Update CSS Variable Names
+### 1. Rename `sidebar` to `viewsManager` in Options
+
+If you're using the `sidebar` property in your options configuration, rename it to `viewsManager`. Additionally, the property names inside `options` have been updated to match the actual element IDs:
+
+**Property name changes:**
+- `sidebar` → `viewsManager`
+- `viewThumbnail` → `thumbnailsViewMenu` and `thumbnailsView`
+- `viewOutline` → `outlinesViewMenu` and `outlinesView`
+- `viewAttachments` → `attachmentsViewMenu` and `attachmentsView`
+- `viewLayers` → `layersViewMenu` and `layersView`
+- `currentOutlineItem` → `viewsManagerCurrentOutlineButton`
+
+**Additional options now available:**
+- `viewsManagerSelectorButton` - Show/hide the view selector button
+- `viewsManagerSelectorOptions` - Show/hide the view selector dropdown
+- `viewsManagerAddFileButton` - Show/hide the add file button
+- `viewsManagerHeaderLabel` - Show/hide the header label
+
+See the [Customization Guide](/guide/customization#views-manager-customization) for complete details.
+
+### 2. Update CSS Variable Names
 
 If you have custom CSS that overrides the PDF viewer's variables, you need to add the `--vue-pdfjs-` prefix to all variable names.
 
@@ -106,8 +176,27 @@ If you encounter any issues during migration:
 
 **Before (v1.x):**
 ```vue
+<script setup>
+import { reactive } from 'vue';
+import { VuePDFjs, usePDF } from '@tuttarealstep/vue-pdf.js';
+import '@tuttarealstep/vue-pdf.js/dist/style.css';
+
+const { pdf } = usePDF('document.pdf');
+
+const options = reactive({
+  sidebar: {
+    visible: true,
+    options: {
+      viewThumbnail: true,
+      viewOutline: true,
+      currentOutlineItem: true
+    }
+  }
+});
+</script>
+
 <template>
-  <VuePDFjs :source="pdf" />
+  <VuePDFjs :source="pdf" :options="options" />
 </template>
 
 <style>
@@ -124,8 +213,29 @@ If you encounter any issues during migration:
 
 **After (v2.x):**
 ```vue
+<script setup>
+import { reactive } from 'vue';
+import { VuePDFjs, usePDF } from '@tuttarealstep/vue-pdf.js';
+import '@tuttarealstep/vue-pdf.js/dist/style.css';
+
+const { pdf } = usePDF('document.pdf');
+
+const options = reactive({
+  viewsManager: {
+    visible: true,
+    options: {
+      thumbnailsViewMenu: true,
+      thumbnailsView: true,
+      outlinesViewMenu: true,
+      outlinesView: true,
+      viewsManagerCurrentOutlineButton: true
+    }
+  }
+});
+</script>
+
 <template>
-  <VuePDFjs :source="pdf" />
+  <VuePDFjs :source="pdf" :options="options" />
 </template>
 
 <style>

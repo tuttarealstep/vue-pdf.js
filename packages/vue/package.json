@@ -40,7 +40,7 @@
     "@fluent/bundle": "^0.18.0",
     "@fluent/dom": "^0.10.0",
     "ajv": "^8.17.1",
-    "pdf.js": "git://github.com/mozilla/pdf.js.git#v5.4.449"
+    "pdf.js": "git://github.com/mozilla/pdf.js.git#v5.4.530"
   },
   "peerDependencies": {
     "vue": "^3.4.29"

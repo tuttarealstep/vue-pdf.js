@@ -58,24 +58,34 @@ export default (rootElement: ShadowRoot | Document) => {
       imageAltTextSettingsSeparator: getElement('imageAltTextSettingsSeparator'),
       documentPropertiesButton: getElement('documentProperties')
     },
-    sidebar: {
-      // Divs (and sidebar button)
-      outerContainer: getElement('outerContainer'),
-      sidebarContainer: getElement('sidebarContainer'),
-      toggleButton: getElement('sidebarToggleButton'),
-      resizer: getElement('sidebarResizer'),
-      // Buttons
-      thumbnailButton: getElement('viewThumbnail'),
-      outlineButton: getElement('viewOutline'),
-      attachmentsButton: getElement('viewAttachments'),
-      layersButton: getElement('viewLayers'),
-      // Views
-      thumbnailView: getElement('thumbnailView'),
-      outlineView: getElement('outlineView'),
-      attachmentsView: getElement('attachmentsView'),
-      layersView: getElement('layersView'),
-      // View-specific options
-      currentOutlineItemButton: getElement('currentOutlineItem')
+    viewsManager: {
+      outerContainer: getElement("outerContainer"),
+      toggleButton: getElement("viewsManagerToggleButton"),
+      sidebarContainer: getElement("viewsManager"),
+      resizer: getElement("viewsManagerResizer"),
+      thumbnailButton: getElement("thumbnailsViewMenu"),
+      outlineButton: getElement("outlinesViewMenu"),
+      attachmentsButton: getElement("attachmentsViewMenu"),
+      layersButton: getElement("layersViewMenu"),
+      viewsManagerSelectorButton: getElement(
+        "viewsManagerSelectorButton"
+      ),
+      viewsManagerSelectorOptions: getElement(
+        "viewsManagerSelectorOptions"
+      ),
+      thumbnailsView: getElement("thumbnailsView"),
+      outlinesView: getElement("outlinesView"),
+      attachmentsView: getElement("attachmentsView"),
+      layersView: getElement("layersView"),
+      viewsManagerAddFileButton: getElement(
+        "viewsManagerAddFileButton"
+      ),
+      viewsManagerCurrentOutlineButton: getElement(
+        "viewsManagerCurrentOutlineButton"
+      ),
+      viewsManagerHeaderLabel: getElement(
+        "viewsManagerHeaderLabel"
+      ),
     },
     findBar: {
       bar: getElement('findbar'),
@@ -213,7 +223,7 @@ export default (rootElement: ShadowRoot | Document) => {
     editCommentDialog: {
       dialog: getElement('commentManagerDialog'),
       toolbar: getElement('commentManagerToolbar'),
-      title: document.getElementById("commentManagerTitle"),
+      title: getElement("commentManagerTitle"),
       textInput: getElement('commentManagerTextInput'),
       cancelButton: getElement('commentManagerCancelButton'),
       saveButton: getElement('commentManagerSaveButton')

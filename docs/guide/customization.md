@@ -93,29 +93,41 @@ const options = reactive({
 </script>
 ```
 
-## Sidebar Customization
+## Views Manager Customization
 
-The sidebar provides additional views like thumbnails, document outline, attachments, and layers. You can customize its appearance and behavior using the `options.sidebar` property.
+The Views Manager (sidebar) provides additional views like thumbnails, document outline, attachments, and layers. You can customize its appearance and behavior using the `options.viewsManager` property.
 
-### Sidebar Options
+### Views Manager Options
 
 ```vue
 <script setup>
 const options = reactive({
-  sidebar: {
-    visible: true, // Set to false to hide the sidebar entirely
+  viewsManager: {
+    visible: true, // Set to false to hide the views manager entirely
     options: {
-      // Sidebar toggle button
-      sidebarToggleButton: true, // Show/hide the sidebar toggle button
+      // Toggle button
+      viewsManagerToggleButton: true, // Show/hide the views manager toggle button
       
-      // View buttons
-      viewThumbnail: true,    // Show thumbnails view button
-      viewOutline: true,      // Show outline view button
-      viewAttachments: true,  // Show attachments view button
-      viewLayers: true,       // Show layers view button
+      // View selector
+      viewsManagerSelectorButton: true, // Show/hide the view selector button
+      viewsManagerSelectorOptions: true, // Show/hide the view selector dropdown
       
-      // Current outline item
-      currentOutlineItem: true // Show current outline item button
+      // View menu buttons
+      thumbnailsViewMenu: true,    // Show thumbnails view menu button
+      outlinesViewMenu: true,      // Show outline view menu button
+      attachmentsViewMenu: true,   // Show attachments view menu button
+      layersViewMenu: true,        // Show layers view menu button
+      
+      // Views
+      thumbnailsView: true,        // Show thumbnails view
+      outlinesView: true,          // Show outline view
+      attachmentsView: true,       // Show attachments view
+      layersView: true,            // Show layers view
+      
+      // Header buttons
+      viewsManagerAddFileButton: true,          // Show add file button
+      viewsManagerCurrentOutlineButton: true,   // Show current outline item button
+      viewsManagerHeaderLabel: true             // Show header label
     }
   }
 });
@@ -192,7 +204,7 @@ You can override these variables in your application's CSS:
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.vue-pdfjs #sidebarContainer {
+.vue-pdfjs #viewsManager {
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -317,14 +329,18 @@ const options = reactive({
       documentProperties: true,
     }
   },
-  sidebar: {
+  viewsManager: {
     visible: true,
     options: {
-      sidebarToggleButton: true,
-      viewThumbnail: true,
-      viewOutline: true,
-      viewAttachments: false,
-      viewLayers: false,
+      viewsManagerSelectorButton: true,
+      thumbnailsViewMenu: true,
+      outlinesViewMenu: true,
+      attachmentsViewMenu: false,
+      layersViewMenu: false,
+      thumbnailsView: true,
+      outlinesView: true,
+      attachmentsView: false,
+      layersView: false,
     }
   }
 });

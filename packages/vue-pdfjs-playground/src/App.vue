@@ -10,7 +10,7 @@ const pdf = new URL('./assets/compressed.tracemonkey-pldi-09.pdf', import.meta.u
 const vuepdfjs = useTemplateRef<InstanceType<typeof VuePDFjs>>('vuepdfjs')
 
 const hideToolbar = ref(false)
-const hideSidebar = ref(false)
+const hideViewsManager = ref(false)
 const useContainerQuery = ref(false)
 const playgroundWidth = ref(100)
 
@@ -22,7 +22,7 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
   toolbar: {
     visible: true,
     options: {
-      sidebarToggleButton: false,
+      viewsManagerToggleButton: false,
       /*secondaryOpenFile: false,
       secondaryDownload: false,
       secondaryPrint: false,
@@ -31,7 +31,7 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
       download: false,*/
     }
   },
-  sidebar: {
+  viewsManager: {
     visible: true
   },
 })
@@ -43,12 +43,13 @@ watchEffect(() => {
 
     options.toolbar.options = {
       ...options.toolbar.options,
-      sidebarToggleButton: !hideSidebar.value
+      viewsManagerToggleButton: !hideViewsManager.value
     }
   }
 
-  if (options.sidebar)
-    options.sidebar.visible = !hideSidebar.value
+  if (options.viewsManager) {
+    options.viewsManager.visible = !hideViewsManager.value
+  }
 })
 
 const onPdfAppError = (error: unknown) => {
@@ -95,7 +96,7 @@ watch(document, (value) => {
 <template>
   <div>
     <input type="checkbox" v-model="hideToolbar" /> Hide Toolbar
-    <input type="checkbox" v-model="hideSidebar" /> Hide Sidebar
+    <input type="checkbox" v-model="hideViewsManager" /> Hide Views Manager
     <button type="button" class="custom-button" @click="source = `invalid${new Date().getTime()}.pdf`">
       Load Invalid PDF
     </button>

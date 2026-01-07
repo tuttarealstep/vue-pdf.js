@@ -9,18 +9,26 @@ const vuepdfjs = useTemplateRef<typeof VuePDFjs>('vuepdfjs')
 
 // Toolbar options
 const showToolbar = ref(true)
-const showSidebar = ref(true)
 const showPrintButton = ref(true)
 const showDownloadButton = ref(true)
 const showFindButton = ref(true)
 const showSecondaryToolbar = ref(true)
 const showEditorTools = ref(true)
 
+// Views Manager options
+const showViewsManager = ref(true)
+const showViewsManagerToggle = ref(true)
+const showThumbnailsView = ref(true)
+const showOutlinesView = ref(true)
+const showAttachmentsView = ref(true)
+const showLayersView = ref(true)
+const showCurrentOutlineButton = ref(true)
+
 // Appearance options
 const themeColor = ref('#41B883')
-const sidebarBgColor = ref('#41B883')
-const toolbarBgColor = ref('#41B883')
-const mainTextColor = ref('#ffffff')
+const viewsManagerBgColor = ref('#2c3e50')
+const toolbarBgColor = ref('#ffffff')
+const mainTextColor = ref('#2c3e50')
 
 // Container query options
 const useContainerQuery = ref(true)
@@ -40,15 +48,26 @@ const options = reactive<NonNullable<VuePDFjsProps['options']>>({
             secondaryPrint: true,
             viewFindButton: true,
             secondaryToolbarToggle: true,
-            sidebarToggleButton: true,
+            viewsManagerToggleButton: true,
             editorFreeText: true,
             editorHighlight: true,
             editorInk: true,
             editorStamp: true
         }
     },
-    sidebar: {
-        visible: true
+    viewsManager: {
+        visible: true,
+        options: {
+            thumbnailsViewMenu: true,
+            outlinesViewMenu: true,
+            attachmentsViewMenu: true,
+            layersViewMenu: true,
+            thumbnailsView: true,
+            outlinesView: true,
+            attachmentsView: true,
+            layersView: true,
+            viewsManagerCurrentOutlineButton: true
+        }
     }
 })
 
@@ -60,7 +79,7 @@ function updateOptions() {
         // Update toolbar options
         options.toolbar.options = {
             ...options.toolbar.options,
-            sidebarToggleButton: showSidebar.value,
+            viewsManagerToggleButton: showViewsManagerToggle.value,
             printButton: showPrintButton.value,
             secondaryPrint: showPrintButton.value,
             downloadButton: showDownloadButton.value,
@@ -74,9 +93,21 @@ function updateOptions() {
         }
     }
     
-    // Update sidebar visibility
-    if (options.sidebar) {
-        options.sidebar.visible = showSidebar.value
+    // Update views manager visibility
+    if (options.viewsManager) {
+        options.viewsManager.visible = showViewsManager.value
+        options.viewsManager.options = {
+            ...options.viewsManager.options,
+            thumbnailsViewMenu: showThumbnailsView.value,
+            outlinesViewMenu: showOutlinesView.value,
+            attachmentsViewMenu: showAttachmentsView.value,
+            layersViewMenu: showLayersView.value,
+            thumbnailsView: showThumbnailsView.value,
+            outlinesView: showOutlinesView.value,
+            attachmentsView: showAttachmentsView.value,
+            layersView: showLayersView.value,
+            viewsManagerCurrentOutlineButton: showCurrentOutlineButton.value
+        }
     }
     
     // Apply custom CSS variables
@@ -87,14 +118,14 @@ function applyCustomTheme() {
     const root = document.querySelector('.customization-demo .vue-pdfjs') as HTMLElement
     if (!root) return
     
-    // Apply custom CSS variables
-    root.style.setProperty('--primary-color', themeColor.value)
-    root.style.setProperty('--sidebar-narrow-bg-color', sidebarBgColor.value)
-    root.style.setProperty('--toolbar-bg-color', toolbarBgColor.value)
-    root.style.setProperty('--main-color', mainTextColor.value)
-    root.style.setProperty('--button-hover-color', `${themeColor.value}50`)
-    root.style.setProperty('--toggled-btn-color', `${themeColor.value}50`)
-    root.style.setProperty('--toggled-btn-hover-color', `${themeColor.value}66`)
+    // Apply custom CSS variables with vue-pdfjs- prefix
+    root.style.setProperty('--vue-pdfjs-primary-color', themeColor.value)
+    root.style.setProperty('--vue-pdfjs-sidebar-narrow-bg-color', viewsManagerBgColor.value)
+    root.style.setProperty('--vue-pdfjs-toolbar-bg-color', toolbarBgColor.value)
+    root.style.setProperty('--vue-pdfjs-main-color', mainTextColor.value)
+    root.style.setProperty('--vue-pdfjs-button-hover-color', `${themeColor.value}33`)
+    root.style.setProperty('--vue-pdfjs-toggled-btn-bg-color', `${themeColor.value}33`)
+    root.style.setProperty('--vue-pdfjs-toggled-hover-btn-outline', `2px solid ${themeColor.value}`)
     
     // Check for dark mode from parent document
     const isDarkMode = document.documentElement.classList.contains('dark')
@@ -132,21 +163,22 @@ const onPdfAppLoaded = () => {
 
 // Watch for changes to options
 const watchedRefs = [
-    showToolbar, showSidebar, showPrintButton, 
-    showDownloadButton, showFindButton, showSecondaryToolbar,
-    showEditorTools
+    showToolbar, showViewsManager, showViewsManagerToggle, showPrintButton, 
+    showDownloadButton, showFindButton, showSecondaryToolbar, showEditorTools,
+    showThumbnailsView, showOutlinesView, showAttachmentsView, showLayersView,
+    showCurrentOutlineButton
 ]
 
 watchedRefs.forEach(ref => {
     watch(ref, updateOptions)
 })
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.449/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.530/web/compressed.tracemonkey-pldi-09.pdf'
 
 // Setup watchers for theme options
 import { watch } from 'vue'
 
-const watchedThemeRefs = [themeColor, sidebarBgColor, toolbarBgColor, mainTextColor]
+const watchedThemeRefs = [themeColor, viewsManagerBgColor, toolbarBgColor, mainTextColor]
 watchedThemeRefs.forEach(ref => {
     watch(ref, applyCustomTheme)
 })
@@ -156,15 +188,11 @@ watchedThemeRefs.forEach(ref => {
     <div class="customization-demo">
         <div class="controls">
             <div class="control-section">
-                <h3>Visibility Options</h3>
+                <h3>Toolbar Options</h3>
                 <div class="checkbox-group">
                     <label>
                         <input type="checkbox" v-model="showToolbar"> 
                         Show Toolbar
-                    </label>
-                    <label>
-                        <input type="checkbox" v-model="showSidebar"> 
-                        Show Sidebar
                     </label>
                     <label>
                         <input type="checkbox" v-model="showPrintButton"> 
@@ -190,6 +218,40 @@ watchedThemeRefs.forEach(ref => {
             </div>
             
             <div class="control-section">
+                <h3>Views Manager Options</h3>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" v-model="showViewsManager"> 
+                        Show Views Manager
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="showViewsManagerToggle"> 
+                        Toggle Button
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="showThumbnailsView"> 
+                        Thumbnails View
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="showOutlinesView"> 
+                        Outlines View
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="showAttachmentsView"> 
+                        Attachments View
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="showLayersView"> 
+                        Layers View
+                    </label>
+                    <label>
+                        <input type="checkbox" v-model="showCurrentOutlineButton"> 
+                        Current Outline Button
+                    </label>
+                </div>
+            </div>
+            
+            <div class="control-section">
                 <h3>Theme Customization</h3>
                 <div class="color-pickers">
                     <label>
@@ -197,11 +259,11 @@ watchedThemeRefs.forEach(ref => {
                         <input type="color" v-model="themeColor">
                     </label>
                     <label>
-                        Sidebar Color:
-                        <input type="color" v-model="sidebarBgColor">
+                        Views Manager BG:
+                        <input type="color" v-model="viewsManagerBgColor">
                     </label>
                     <label>
-                        Toolbar Color:
+                        Toolbar BG:
                         <input type="color" v-model="toolbarBgColor">
                     </label>
                     <label>
