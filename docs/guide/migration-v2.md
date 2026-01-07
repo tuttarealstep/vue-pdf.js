@@ -147,7 +147,7 @@ Or manually update each variable:
 | `--field-bg-color` | `--vue-pdfjs-field-bg-color` |
 | `--errorWrapper-bg-color` | `--vue-pdfjs-errorWrapper-bg-color` |
 
-### 2. Test Your Application
+### 3. Test Your Application
 
 After updating the variable names:
 
