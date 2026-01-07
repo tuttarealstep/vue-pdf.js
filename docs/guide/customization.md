@@ -128,43 +128,45 @@ VuePDFjs provides CSS variables and classes that allow you to customize the appe
 
 ### Key CSS Variables
 
+All CSS variables are prefixed with `--vue-pdfjs-` to prevent conflicts with your application's CSS.
+
 ```css
 :root {
   /* Main colors */
-  --primary-color: #1976D2;          /* Primary accent color */
-  --toolbar-bg-color: #f9f9f9;       /* Toolbar background */
-  --body-bg-color: #eee;             /* Main background */
+  --vue-pdfjs-primary-color: #1976D2;          /* Primary accent color */
+  --vue-pdfjs-toolbar-bg-color: #f9f9f9;       /* Toolbar background */
+  --vue-pdfjs-body-bg-color: #eee;             /* Main background */
   
   /* Text colors */
-  --main-color: rgba(0, 0, 0, 0.87); /* Main text color */
-  --loadingBar-color: rgba(0, 0, 0, 0.5); /* Loading bar color */
+  --vue-pdfjs-main-color: rgba(0, 0, 0, 0.87); /* Main text color */
+  --vue-pdfjs-loadingBar-color: rgba(0, 0, 0, 0.5); /* Loading bar color */
   
   /* Button colors */
-  --button-hover-color: rgba(0, 0, 0, 0.2); /* Button hover state */
-  --toggled-btn-color: rgba(0, 0, 0, 0.2);  /* Toggled button state */
-  --toggled-btn-hover-color: rgba(0, 0, 0, 0.4); /* Toggled button hover */
-  --dropdown-btn-bg-color: white;    /* Dropdown button background */
+  --vue-pdfjs-button-hover-color: rgba(0, 0, 0, 0.2); /* Button hover state */
+  --vue-pdfjs-toggled-btn-color: rgba(0, 0, 0, 0.2);  /* Toggled button state */
+  --vue-pdfjs-toggled-btn-hover-color: rgba(0, 0, 0, 0.4); /* Toggled button hover */
+  --vue-pdfjs-dropdown-btn-bg-color: white;    /* Dropdown button background */
   
   /* Sidebar colors */
-  --sidebar-narrow-bg-color: rgba(0, 0, 0, 0.33); /* Narrow sidebar background */
-  --thumbnail-selection-ring-color: #006622; /* Selected thumbnail indicator */
+  --vue-pdfjs-sidebar-narrow-bg-color: rgba(0, 0, 0, 0.33); /* Narrow sidebar background */
+  --vue-pdfjs-thumbnail-selection-ring-color: #006622; /* Selected thumbnail indicator */
   
   /* Scroll bar */
-  --scrollbar-color: #b0b0b0;        /* Scrollbar thumb color */
-  --scrollbar-bg-color: #f1f1f1;     /* Scrollbar track color */
+  --vue-pdfjs-scrollbar-color: #b0b0b0;        /* Scrollbar thumb color */
+  --vue-pdfjs-scrollbar-bg-color: #f1f1f1;     /* Scrollbar track color */
   
   /* Dialog colors */
-  --dialog-button-bg: #f9f9f9;       /* Dialog button background */
-  --dialog-button-border: #d3d3d3;   /* Dialog button border */
-  --dialog-button-hover-bg: #e6e6e6; /* Dialog button hover background */
-  --dialog-button-hover-border: #a9a9a9; /* Dialog button hover border */
+  --vue-pdfjs-dialog-button-bg: #f9f9f9;       /* Dialog button background */
+  --vue-pdfjs-dialog-button-border: #d3d3d3;   /* Dialog button border */
+  --vue-pdfjs-dialog-button-hover-bg: #e6e6e6; /* Dialog button hover background */
+  --vue-pdfjs-dialog-button-hover-border: #a9a9a9; /* Dialog button hover border */
   
   /* Input colors */
-  --field-border-color: #d1d1d1;     /* Input field border */
-  --field-bg-color: white;           /* Input field background */
+  --vue-pdfjs-field-border-color: #d1d1d1;     /* Input field border */
+  --vue-pdfjs-field-bg-color: white;           /* Input field background */
   
   /* Error message */
-  --errorWrapper-bg-color: rgba(169, 68, 68, 0.79); /* Error message background */
+  --vue-pdfjs-errorWrapper-bg-color: rgba(169, 68, 68, 0.79); /* Error message background */
 }
 ```
 
@@ -176,13 +178,13 @@ You can override these variables in your application's CSS:
 <style>
 .vue-pdfjs {
   /* Override default variables */
-  --primary-color: #42b883;         /* Vue.js green */
-  --sidebar-bg-color: #34495e;      /* Dark sidebar */
-  --toolbar-bg-color: #f8f9fa;      /* Light toolbar */
-  --body-bg-color: #ffffff;         /* White background */
-  --main-color: #2c3e50;            /* Dark text */
-  --scrollbar-color: #42b883;       /* Vue.js green scrollbar */
-  --button-hover-color: rgba(66, 184, 131, 0.2); /* Light green hover */
+  --vue-pdfjs-primary-color: #42b883;         /* Vue.js green */
+  --vue-pdfjs-sidebar-bg-color: #34495e;      /* Dark sidebar */
+  --vue-pdfjs-toolbar-bg-color: #f8f9fa;      /* Light toolbar */
+  --vue-pdfjs-body-bg-color: #ffffff;         /* White background */
+  --vue-pdfjs-main-color: #2c3e50;            /* Dark text */
+  --vue-pdfjs-scrollbar-color: #42b883;       /* Vue.js green scrollbar */
+  --vue-pdfjs-button-hover-color: rgba(66, 184, 131, 0.2); /* Light green hover */
 }
 
 /* Add custom styles to specific elements */
@@ -345,16 +347,16 @@ const options = reactive({
 }
 
 .vue-pdfjs {
-  --primary-color: #42b883;
-  --toolbar-bg-color: #ffffff;
-  --body-bg-color: #f5f5f5;
-  --sidebar-narrow-bg-color: #ffffff;
-  --main-color: #333333;
-  --button-hover-color: rgba(66, 184, 131, 0.1);
-  --toggled-btn-color: rgba(66, 184, 131, 0.2);
-  --toggled-btn-hover-color: rgba(66, 184, 131, 0.3);
-  --field-border-color: #e0e0e0;
-  --thumbnail-selection-ring-color: #42b883;
+  --vue-pdfjs-primary-color: #42b883;
+  --vue-pdfjs-toolbar-bg-color: #ffffff;
+  --vue-pdfjs-body-bg-color: #f5f5f5;
+  --vue-pdfjs-sidebar-narrow-bg-color: #ffffff;
+  --vue-pdfjs-main-color: #333333;
+  --vue-pdfjs-button-hover-color: rgba(66, 184, 131, 0.1);
+  --vue-pdfjs-toggled-btn-color: rgba(66, 184, 131, 0.2);
+  --vue-pdfjs-toggled-btn-hover-color: rgba(66, 184, 131, 0.3);
+  --vue-pdfjs-field-border-color: #e0e0e0;
+  --vue-pdfjs-thumbnail-selection-ring-color: #42b883;
 }
 </style>
 ```
