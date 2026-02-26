@@ -26,7 +26,11 @@ export default defineConfig({
       }
     }
   },
+  define: {
+    PDFJSDev: '__PDFJSDEV__'
+  },
   build: {
+    //sourcemap: true,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'VuePDFjs',
@@ -35,6 +39,8 @@ export default defineConfig({
     rollupOptions: {
       external: ['vue'],
       output: {
+        intro:
+          'const __PDFJSDEV__ = { test: (flag) => /GENERIC/.test(flag), eval: (key) => (key === "BUNDLE_VERSION" ? null : key === "BUNDLE_BUILD" ? null : null) };',
         globals: {
           vue: 'Vue'
         },

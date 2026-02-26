@@ -96,13 +96,18 @@ async function init() {
         throw new Error('Locale ftl text is required');
       }
 
-      PDFViewerApplicationOptions.set('lang', props.options?.locale?.code);
       (globalThis as any)['__VUE_PDFJS__'] = {
         locale: props.options.locale.ftl,
       };
     }
 
     pdfApp.value = await initViewer(container.value);
+
+    // If locale is set in options, we need to set it in the PDFViewerApplicationOptions as well
+    if (props.options?.locale) {
+      PDFViewerApplicationOptions.set('lang', props.options?.locale?.code);
+    }
+
     await pdfApp.value.initializedPromise;
 
     pdfApp.value.eventBus.on('documentloaded', (
