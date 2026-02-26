@@ -65,7 +65,7 @@ import fs from 'fs'
 import path from 'path'
 
 const patchGenericl10n = () => {
-    const filePath = path.resolve(__dirname, '../../../node_modules/pdf.js/web/genericl10n.js')
+    const filePath = path.resolve(__dirname, '../node_modules/pdf.js/web/genericl10n.js')
     const fileContent = fs.readFileSync(filePath, 'utf-8')
 
     /*
@@ -107,7 +107,7 @@ const patchGenericl10n = () => {
 }
 
 const patchViewerCss = () => {
-    const filePath = path.resolve(__dirname, '../../../node_modules/pdf.js/web/viewer.css')
+    const filePath = path.resolve(__dirname, '../node_modules/pdf.js/web/viewer.css')
     const fileContent = fs.readFileSync(filePath, 'utf-8')
 
     /*
