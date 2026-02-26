@@ -1,7 +1,7 @@
 {
   "name": "@tuttarealstep/vue-pdf.js",
   "description": "A Vue component for displaying PDF files using the standard `pdf.js` viewer. This package provides a simple and powerful integration to embed PDF viewers in Vue applications.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": false,
   "type": "module",
   "author": "Stefano Valenzano (https://github.com/tuttarealstep)",
@@ -40,7 +40,7 @@
     "@fluent/bundle": "^0.18.0",
     "@fluent/dom": "^0.10.0",
     "ajv": "^8.17.1",
-    "pdf.js": "git://github.com/mozilla/pdf.js.git#v5.4.530"
+    "pdf.js": "git://github.com/mozilla/pdf.js.git#v5.4.624"
   },
   "peerDependencies": {
     "vue": "^3.4.29"

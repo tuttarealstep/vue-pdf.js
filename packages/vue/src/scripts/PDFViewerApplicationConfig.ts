@@ -86,6 +86,14 @@ export default (rootElement: ShadowRoot | Document) => {
       viewsManagerHeaderLabel: getElement(
         "viewsManagerHeaderLabel"
       ),
+      manageMenu: {
+        button: getElement("viewsManagerStatusActionButton"),
+        menu: getElement("viewsManagerStatusActionOptions"),
+        copy: getElement("viewsManagerStatusActionCopy"),
+        cut: getElement("viewsManagerStatusActionCut"),
+        delete: getElement("viewsManagerStatusActionDelete"),
+        saveAs: getElement("viewsManagerStatusActionSaveAs"),
+      },
     },
     findBar: {
       bar: getElement('findbar'),

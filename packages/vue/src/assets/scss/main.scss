@@ -4,6 +4,10 @@
     height: 100%;
     width: 100%;
 
+    .pdfViewer .page {
+        box-sizing: content-box;
+    }
+
     .appContainer {
         height: 100%;
         width: 100%;

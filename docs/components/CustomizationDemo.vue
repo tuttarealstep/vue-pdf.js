@@ -173,7 +173,7 @@ watchedRefs.forEach(ref => {
     watch(ref, updateOptions)
 })
 
-const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.530/web/compressed.tracemonkey-pldi-09.pdf'
+const pdf = 'https://raw.githubusercontent.com/mozilla/pdf.js/v5.4.624/web/compressed.tracemonkey-pldi-09.pdf'
 
 // Setup watchers for theme options
 import { watch } from 'vue'

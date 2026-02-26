@@ -3,23 +3,23 @@ import { defineProps, watch, onMounted } from 'vue'
 
 export interface ViewsManagerProps {
     visible?: boolean;
-    options?: {        
+    options?: {
         // View selector
         viewsManagerSelectorButton?: boolean;
         viewsManagerSelectorOptions?: boolean;
-        
+
         // View menu buttons
         thumbnailsViewMenu?: boolean;
         outlinesViewMenu?: boolean;
         attachmentsViewMenu?: boolean;
         layersViewMenu?: boolean;
-        
+
         // Views
         thumbnailsView?: boolean;
         outlinesView?: boolean;
         attachmentsView?: boolean;
         layersView?: boolean;
-        
+
         // Header buttons
         viewsManagerAddFileButton?: boolean;
         viewsManagerCurrentOutlineButton?: boolean;
@@ -54,12 +54,13 @@ watch(() => props.options, (newOptions: ViewsManagerProps['options']) => {
         <div id="viewsManagerHeader" role="heading" aria-level="2">
             <div id="viewsManagerTitle">
                 <div id="viewsManagerSelector">
-                    <button class="toolbarButton viewsManagerButton" type="button" id="viewsManagerSelectorButton"
-                        tabindex="0" data-l10n-id="pdfjs-views-manager-view-selector-button" aria-expanded="false"
+                    <button class="toolbarButton viewsManagerButton hasPopupMenu" type="button"
+                        id="viewsManagerSelectorButton" tabindex="0"
+                        data-l10n-id="pdfjs-views-manager-view-selector-button" aria-expanded="false"
                         aria-haspopup="listbox" aria-controls="viewsManagerSelectorOptions">
                         <span data-l10n-id="pdfjs-views-manager-view-selector-button-label"></span>
                     </button>
-                    <menu id="viewsManagerSelectorOptions" role="listbox" class="popupMenu hidden withMark">
+                    <menu id="viewsManagerSelectorOptions" role="listbox" class="popupMenu withMark">
                         <li>
                             <button id="thumbnailsViewMenu" role="option" type="button" tabindex="-1">
                                 <span data-l10n-id="pdfjs-views-manager-pages-option-label"></span>
@@ -93,36 +94,37 @@ watch(() => props.options, (newOptions: ViewsManagerProps['options']) => {
                 </button>
             </div>
             <div id="viewsManagerStatus">
-                <div id="viewsManagerStatusAction" class="hidden">
+                <div id="viewsManagerStatusAction">
                     <span id="viewsManagerStatusActionLabel" class="viewsManagerStatusLabel"
                         data-l10n-id="pdfjs-views-manager-pages-status-none-action-label"></span>
                     <div id="actionSelector">
-                        <button id="viewsManagerStatusActionButton" class="viewsManagerButton" type="button"
-                            tabindex="0" aria-haspopup="menu" aria-controls="viewsManagerStatusActionOptions">
+                        <button id="viewsManagerStatusActionButton" class="viewsManagerButton hasPopupMenu"
+                            type="button" tabindex="0" aria-haspopup="menu"
+                            aria-controls="viewsManagerStatusActionOptions" aria-expanded="false">
                             <span data-l10n-id="pdfjs-views-manager-pages-status-action-button-label"></span>
                         </button>
-                        <menu id="viewsManagerStatusActionOptions" class="popupMenu hidden">
+                        <menu id="viewsManagerStatusActionOptions" class="popupMenu">
                             <li>
                                 <button id="viewsManagerStatusActionCopy" class="noIcon" role="menuitem" type="button"
-                                    tabindex="0">
+                                    tabindex="0" disabled>
                                     <span data-l10n-id="pdfjs-views-manager-pages-status-copy-button-label"></span>
                                 </button>
                             </li>
                             <li>
                                 <button id="viewsManagerStatusActionCut" class="noIcon" role="menuitem" type="button"
-                                    tabindex="0">
+                                    tabindex="0" disabled>
                                     <span data-l10n-id="pdfjs-views-manager-pages-status-cut-button-label"></span>
                                 </button>
                             </li>
                             <li>
                                 <button id="viewsManagerStatusActionDelete" class="noIcon" role="menuitem" type="button"
-                                    tabindex="0">
+                                    tabindex="0" disabled>
                                     <span data-l10n-id="pdfjs-views-manager-pages-status-delete-button-label"></span>
                                 </button>
                             </li>
                             <li>
                                 <button id="viewsManagerStatusActionSaveAs" class="noIcon" role="menuitem" type="button"
-                                    tabindex="0">
+                                    tabindex="0" disabled>
                                     <span data-l10n-id="pdfjs-views-manager-pages-status-save-as-button-label"></span>
                                 </button>
                             </li>
@@ -167,6 +169,7 @@ watch(() => props.options, (newOptions: ViewsManagerProps['options']) => {
             <div id="attachmentsView" class="hidden"></div>
             <div id="layersView" class="treeView hidden"></div>
         </div>
-        <div id="viewsManagerResizer" class="sidebarResizer"></div>
+        <div id="viewsManagerResizer" class="sidebarResizer" role="separator" aria-controls="viewsManager" tabindex="0">
+        </div>
     </div>
 </template>

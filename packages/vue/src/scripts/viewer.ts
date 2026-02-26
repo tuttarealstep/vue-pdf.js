@@ -23,12 +23,15 @@ async function initViewer(element: HTMLElement): Promise<typeof PDFViewerApplica
   globalThis.PDFViewerApplicationConstants = AppConstants
   // @ts-ignore
   globalThis.PDFViewerApplicationOptions = AppOptions
+  // @ts-ignore
 
   //AppOptions.set('lang', 'it');
-  AppOptions.set('disablePreferences', true)
-  AppOptions.set('defaultUrl', '')
-  AppOptions.set('workerPort', new PDFJSWorker())
 
+  AppOptions.set('workerPort', new PDFJSWorker())
+  AppOptions.set('defaultUrl', '')
+  AppOptions.set('disablePreferences', true)
+
+  //console.log(AppOptions)
   /*(globalThis as any)['__VUE_PDFJS__'] = {
         locale: testFtl
     }*/
