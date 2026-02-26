@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import llmstxt from 'vitepress-plugin-llms'
+import { fileURLToPath } from 'node:url'
 import { version } from "../../packages/vue/package.json";
 
 // https://vitepress.dev/reference/site-config
@@ -76,6 +77,12 @@ export default defineConfig({
     ],
   },
   vite: {
+    resolve: {
+      alias: {
+        '@vue-pdfjs/package': fileURLToPath(new URL('../../packages/vue', import.meta.url)),
+        '@vue-pdfjs/dist': fileURLToPath(new URL('../../packages/vue/dist', import.meta.url))
+      }
+    },
     plugins: [llmstxt()]
   }
 });

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive, ref, useTemplateRef } from 'vue'
-import { VuePDFjs } from '../../packages/vue'
-import '../../packages/vue/dist/style.css'
-import enUS_FTL from '../../packages/vue/dist/l10n/en-US/viewer.ftl?raw'
-import type { VuePDFjsProps } from '../../packages/vue/dist/src/components/VuePDFjs.vue';
+import { VuePDFjs } from '@vue-pdfjs/package'
+import '@vue-pdfjs/dist/style.css'
+import enUS_FTL from '@vue-pdfjs/dist/l10n/en-US/viewer.ftl?raw'
+import type { VuePDFjsProps } from '@vue-pdfjs/dist/src/components/VuePDFjs.vue';
 
 // Function to safely stringify objects with circular references
 function safeStringify(obj: any, indent: number = 2): string {
