@@ -78,9 +78,9 @@ const viewsManagerOptions = inject<ViewsManagerProps>(viewsManagerOptionsKey)
             <div id="toolbarViewer" class="toolbarHorizontalGroup">
                 <div id="toolbarViewerLeft" class="toolbarHorizontalGroup">
                     <button id="viewsManagerToggleButton" class="toolbarButton" type="button" tabindex="0"
-                        data-l10n-id="pdfjs-toggle-views-manager-button" aria-expanded="false" aria-haspopup="true"
+                        data-l10n-id="pdfjs-toggle-views-manager-button1" aria-expanded="false" aria-haspopup="true"
                         aria-controls="viewsManager">
-                        <span data-l10n-id="pdfjs-toggle-views-manager-button-label"></span>
+                        <span data-l10n-id="pdfjs-toggle-views-manager-button1-label"></span>
                     </button>
 
                     <ViewsManager :visible="viewsManagerOptions?.visible" />

@@ -209,19 +209,6 @@
                                     data-l10n-id="pdfjs-editor-new-alt-text-disclaimer-learn-more-url" tabindex="0"></a>
                             </div>
                         </div>
-                        <div id="aiModelSettings">
-                            <div>
-                                <span data-l10n-id="pdfjs-editor-alt-text-settings-download-model-label"
-                                    data-l10n-args='{ "totalSize": 180 }'></span>
-                                <div id="aiModelDescription" class="description">
-                                    <span data-l10n-id="pdfjs-editor-alt-text-settings-ai-model-description"></span>
-                                </div>
-                            </div>
-                            <button id="deleteModelButton" type="button" class="secondaryButton" tabindex="0"><span
-                                    data-l10n-id="pdfjs-editor-alt-text-settings-delete-model-button"></span></button>
-                            <button id="downloadModelButton" type="button" class="secondaryButton" tabindex="0"><span
-                                    data-l10n-id="pdfjs-editor-alt-text-settings-download-model-button"></span></button>
-                        </div>
                     </div>
                 </div>
                 <div class="dialogSeparator"></div>
@@ -264,7 +251,7 @@
                         data-l10n-id="pdfjs-editor-add-signature-image-button" tabindex="-1"></button>
                 </div>
                 <div id="addSignatureActionContainer" data-selected="type">
-                    <div id="addSignatureTypeContainer" role="tabpanel" aria-labelledby="addSignatureTypeContainer">
+                    <div id="addSignatureTypeContainer" role="tabpanel" aria-labelledby="addSignatureTypeButton">
                         <input id="addSignatureTypeInput" type="text"
                             data-l10n-id="pdfjs-editor-add-signature-type-input" tabindex="0"></input>
                     </div>
@@ -347,7 +334,7 @@
 
         <dialog class="dialog signatureDialog" id="editSignatureDescriptionDialog"
             aria-labelledby="editSignatureDescriptionTitle">
-            <div id="editSignatureDescriptionContainer" class="mainContainer">
+            <div class="mainContainer">
                 <div class="title">
                     <span id="editSignatureDescriptionTitle" role="sectionhead"
                         data-l10n-id="pdfjs-editor-edit-signature-dialog-title" tabindex="0"></span>

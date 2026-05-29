@@ -77,22 +77,56 @@ export default (rootElement: ShadowRoot | Document) => {
       outlinesView: getElement("outlinesView"),
       attachmentsView: getElement("attachmentsView"),
       layersView: getElement("layersView"),
-      viewsManagerAddFileButton: getElement(
-        "viewsManagerAddFileButton"
-      ),
+      viewsManagerAddFile: {
+        button: getElement("viewsManagerAddFileButton"),
+        picker: getElement("viewsManagerAddFilePicker"),
+      },
       viewsManagerCurrentOutlineButton: getElement(
         "viewsManagerCurrentOutlineButton"
       ),
       viewsManagerHeaderLabel: getElement(
         "viewsManagerHeaderLabel"
       ),
+      viewsManagerStatus: getElement("viewsManagerStatus"),
+      viewsManagerStatusBar: {
+        viewsManagerStatusAction: getElement(
+          "viewsManagerStatusAction"
+        ),
+        viewsManagerStatusActionDeselectButton: getElement(
+          "viewsManagerStatusActionDeselectButton"
+        ),
+        viewsManagerStatusActionLabel: getElement(
+          "viewsManagerStatusActionLabel"
+        ),
+      },
+      viewsManagerUndoBar: {
+        viewsManagerStatusUndo: getElement(
+          "viewsManagerStatusUndo"
+        ),
+        viewsManagerStatusUndoLabel: getElement(
+          "viewsManagerStatusUndoLabel"
+        ),
+        viewsManagerStatusUndoButton: getElement(
+          "viewsManagerStatusUndoButton"
+        ),
+        viewsManagerStatusUndoCloseButton: getElement(
+          "viewsManagerStatusUndoCloseButton"
+        ),
+      },
+      viewsManagerWaitingBar: {
+        container: getElement("viewsManagerStatusWaiting"),
+        closeButton: getElement(
+          "viewsManagerStatusWaitingCloseButton"
+        ),
+        label: getElement("viewsManagerStatusWaitingLabel"),
+      },
       manageMenu: {
         button: getElement("viewsManagerStatusActionButton"),
         menu: getElement("viewsManagerStatusActionOptions"),
         copy: getElement("viewsManagerStatusActionCopy"),
         cut: getElement("viewsManagerStatusActionCut"),
         delete: getElement("viewsManagerStatusActionDelete"),
-        saveAs: getElement("viewsManagerStatusActionSaveAs"),
+        exportSelected: getElement("viewsManagerStatusActionExport"),
       },
     },
     findBar: {
@@ -164,10 +198,7 @@ export default (rootElement: ShadowRoot | Document) => {
     altTextSettingsDialog: {
       dialog: getElement('altTextSettingsDialog'),
       createModelButton: getElement('createModelButton'),
-      aiModelSettings: getElement('aiModelSettings'),
       learnMore: getElement('altTextSettingsLearnMore'),
-      deleteModelButton: getElement('deleteModelButton'),
-      downloadModelButton: getElement('downloadModelButton'),
       showAltTextDialogButton: getElement('showAltTextDialogButton'),
       altTextSettingsCloseButton: getElement('altTextSettingsCloseButton'),
       closeButton: getElement('altTextSettingsCloseButton')

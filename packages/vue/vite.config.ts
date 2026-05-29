@@ -83,6 +83,12 @@ export default defineConfig({
       'display-node_stream': fileURLToPath(
         new URL('./node_modules/pdf.js/src/display/stubs.js', import.meta.url)
       ),
+      'display-binary_data_factory': fileURLToPath(
+        new URL('./node_modules/pdf.js/src/display/binary_data_factory.js', import.meta.url)
+      ),
+      'display-network_stream': fileURLToPath(
+        new URL('./node_modules/pdf.js/src/display/network_stream.js', import.meta.url)
+      ),
       'display-node_utils': fileURLToPath(
         new URL('./node_modules/pdf.js/src/display/stubs.js', import.meta.url)
       ),
