@@ -1523,3 +1523,37 @@ function showDocumentProperties() {
 }
 </style>
 ```
+
+## Working with the Bundled pdf.js
+
+The component ships with its own build of pdf.js, separate from any `pdfjs-dist` installed in your application. Configuring `pdfjs-dist` (for example its `GlobalWorkerOptions`) has no effect on the viewer: the bundled instance is exported as `PDFJS` and is the one to use for anything that needs to interact with the viewer internals.
+
+```js
+import { PDFJS, PDFViewerApplicationOptions, PDFViewerApplicationConstants } from '@tuttarealstep/vue-pdf.js'
+
+// Constants, classes and the worker configuration of the bundled pdf.js
+const { AnnotationEditorType, GlobalWorkerOptions, version } = PDFJS
+```
+
+`PDFViewerApplicationOptions` exposes the viewer `AppOptions`, which can be set before the component is mounted.
+
+### Replacing the Worker
+
+By default the viewer spawns an inline worker bundled with the library. To use a different worker, configure `GlobalWorkerOptions` of the bundled instance **before mounting the component**, either with a `workerSrc` URL or with your own `workerPort`:
+
+```js
+import { PDFJS } from '@tuttarealstep/vue-pdf.js'
+import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url'
+
+PDFJS.GlobalWorkerOptions.workerSrc = workerUrl
+```
+
+When `workerPort` or `workerSrc` is already set, the library skips the creation of the bundled worker and uses the configured one for both the viewer and `usePDF`.
+
+::: warning
+The worker must come from the **same pdf.js version** bundled by the library (check the `pdf.js` entry in the package `devDependencies`), otherwise pdf.js refuses to load documents with a `The API version does not match the Worker version` error.
+:::
+
+### Older Browsers
+
+pdf.js v5 targets recent browsers. The library ships small runtime polyfills for `Promise.withResolvers` and `Promise.try` (and pdf.js itself provides one for `AbortSignal.any`), loaded both in the main bundle and inside the worker, so no extra configuration is needed for browsers that only lack those APIs. For anything older you will still need [@vitejs/plugin-legacy](https://github.com/vitejs/vite/tree/main/packages/plugin-legacy) or a similar setup for your application code, and there is no guarantee that every pdf.js feature works on targets outside the [pdf.js supported browsers](https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions#faq-support).

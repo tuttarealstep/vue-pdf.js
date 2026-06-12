@@ -134,6 +134,10 @@ export async function processSource(
   }
 
   return loadingTask.promise.catch((error: any) => {
+    // Abort any work still in flight (worker messaging, range requests),
+    // which would otherwise be left dangling after a failed load
+    loadingTask.destroy().catch(() => {})
+
     if (options?.onError) {
       options.onError(error)
     } else {

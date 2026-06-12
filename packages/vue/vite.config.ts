@@ -1,9 +1,26 @@
 import { fileURLToPath, URL } from 'node:url'
+import { readFileSync } from 'node:fs'
 import dts from 'vite-plugin-dts'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { defineConfig, normalizePath } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+
+// The pdf.js repository doesn't set a `version` field in its package.json,
+// so the version is recovered from the git tag of the dependency. pdf.js
+// compares `BUNDLE_VERSION` between the API and the worker: exposing the
+// real version (instead of `null`) allows swapping in an external worker of
+// the same version, e.g. the legacy one from `pdfjs-dist`.
+const pdfjsVersion =
+  JSON.parse(
+    readFileSync(fileURLToPath(new URL('./package.json', import.meta.url)), 'utf-8')
+  ).devDependencies['pdf.js'].match(/#v([\d.]+)$/)?.[1] ?? null
+
+// Build-time shim for the `PDFJSDev` preprocessor used by the pdf.js sources.
+// It has to be injected in the worker bundle as well, otherwise pdf.js skips
+// the `PDFJSDev`-guarded code paths there (e.g. its own `AbortSignal.any`
+// polyfill) and reports a `null` worker version.
+const pdfjsDevShim = `const __PDFJSDEV__ = { test: (flag) => /GENERIC/.test(flag), eval: (key) => (key === "BUNDLE_VERSION" ? ${JSON.stringify(pdfjsVersion)} : null) };`
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,6 +46,15 @@ export default defineConfig({
   define: {
     PDFJSDev: '__PDFJSDEV__'
   },
+  worker: {
+    rollupOptions: {
+      output: {
+        intro: pdfjsDevShim,
+        // The inline worker runs from a blob, so it cannot load extra chunks
+        inlineDynamicImports: true
+      }
+    }
+  },
   build: {
     //sourcemap: true,
     lib: {
@@ -39,8 +65,7 @@ export default defineConfig({
     rollupOptions: {
       external: ['vue'],
       output: {
-        intro:
-          'const __PDFJSDEV__ = { test: (flag) => /GENERIC/.test(flag), eval: (key) => (key === "BUNDLE_VERSION" ? null : key === "BUNDLE_BUILD" ? null : null) };',
+        intro: pdfjsDevShim,
         globals: {
           vue: 'Vue'
         },
@@ -91,6 +116,10 @@ export default defineConfig({
       ),
       'display-node_utils': fileURLToPath(
         new URL('./node_modules/pdf.js/src/display/stubs.js', import.meta.url)
+      ),
+
+      './internal_viewer_utils.js': fileURLToPath(
+        new URL('./src/scripts/internal_viewer_utils.ts', import.meta.url)
       ),
 
       'web-alt_text_manager': fileURLToPath(

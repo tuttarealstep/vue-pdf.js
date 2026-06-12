@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-06-12
+
+### Added
+
+- Exported the bundled pdf.js API as `PDFJS`, together with `PDFViewerApplicationOptions` and `PDFViewerApplicationConstants`, so the same pdf.js instance used by the viewer can be accessed and configured from the outside (e.g. `PDFJS.GlobalWorkerOptions`, `PDFJS.AnnotationEditorType`)
+- The PDF.js worker can now be replaced: when `PDFJS.GlobalWorkerOptions.workerPort` or `workerSrc` is set before mounting the component, the bundled inline worker is not created and the configured one is used by both the viewer and `usePDF`
+- Runtime polyfills for `Promise.withResolvers` and `Promise.try`, loaded in the main bundle and inside the worker, fixing `TypeError: ... is not a function` errors on older browsers (e.g. Firefox < 121, Chrome < 128)
+
+### Fixed
+
+- The `pdf.js` dependency now actually resolves to v5.7.284: the lockfile was still pinning the commit of v5.4.624 from before the version bump, so the published bundles were built from the older sources
+- The `PDFJSDev` build shim is now injected into the worker bundle as well: previously the worker skipped the `PDFJSDev`-guarded code paths, including the pdf.js polyfill for `AbortSignal.any`
+- The viewer no longer creates a second, unused worker during initialization
+- Failed document loads now destroy the underlying pdf.js loading task, so worker messaging and range requests are not left in flight
+- The browser test environment failed to start because the `PDFJSDev` define resolved to a constant that only exists in the built bundles
+
+### Changed
+
+- `PDFJSDev.eval("BUNDLE_VERSION")` now reports the real pdf.js version instead of `null`, so external workers of the same version (e.g. from `pdfjs-dist`) pass the pdf.js API/worker version check
+
 ## [2.0.0] - 2026-01-07
 
 ### ⚠️ Breaking Changes

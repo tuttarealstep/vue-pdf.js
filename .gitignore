@@ -180,3 +180,11 @@ docs/.vitepress/dist
 
 # In any tests directory ignore __screenshots__ directory
 __screenshots__/
+
+# Playwright
+playwright-report/
+.playwright-mcp/
+
+# Agents
+.omc
+.omx

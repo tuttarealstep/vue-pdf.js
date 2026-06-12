@@ -3,7 +3,7 @@ import { render } from 'vitest-browser-vue'
 import { VuePDFjs, usePDF } from '@tuttarealstep/vue-pdf.js'
 import '@tuttarealstep/vue-pdf.js/dist/style.css'
 // @ts-ignore
-import enUS_FTL from '../../../node_modules/pdf.js/l10n/en-US/viewer.ftl?raw'
+import enUS_FTL from '../node_modules/pdf.js/l10n/en-US/viewer.ftl?raw'
 
 const {
   pdf: pdfDocument,
