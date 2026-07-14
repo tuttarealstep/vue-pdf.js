@@ -1,7 +1,7 @@
 import { parseSourceFile, processSource } from '../src/scripts/utils'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 //@ts-expect-error
-import { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdf.js/src/display/api'
+import { PDFDocumentLoadingTask } from 'pdf.js/src/display/api'
 import { PDFJSWorker } from '../src/scripts/viewer'
 
 //@ts-expect-error
@@ -18,18 +18,37 @@ describe('utils.ts', () => {
     it('should return the same PDFDocumentLoadingTask if source is a File', async () => {
       const file = new File([''], 'test.pdf')
       const result = await parseSourceFile(file)
+      const rejection = result.promise.catch(() => undefined)
       expect(result).toBeInstanceOf(PDFDocumentLoadingTask)
+      await rejection
     })
 
     it('should return the same PDFDocumentLoadingTask if source is a Blob', async () => {
       const blob = new Blob([''], { type: 'application/pdf' })
       const result = await parseSourceFile(blob)
+      const rejection = result.promise.catch(() => undefined)
       expect(result).toBeInstanceOf(PDFDocumentLoadingTask)
+      await rejection
     })
 
     it('should return the same PDFDocumentLoadingTask if source is a string', async () => {
-      const result = await parseSourceFile('https://example.com/test.pdf')
+      const source = new URL(
+        '../../vue-pdfjs-playground/src/assets/compressed.tracemonkey-pldi-09.pdf',
+        import.meta.url
+      )
+      const result = await parseSourceFile(source.href)
       expect(result).toBeInstanceOf(PDFDocumentLoadingTask)
+      expect((await result.promise).numPages).toBe(14)
+    })
+
+    it('should load a PDF from a URL object', async () => {
+      const source = new URL(
+        '../../vue-pdfjs-playground/src/assets/compressed.tracemonkey-pldi-09.pdf',
+        import.meta.url
+      )
+      const result = await parseSourceFile(source)
+      expect(result).toBeInstanceOf(PDFDocumentLoadingTask)
+      expect((await result.promise).numPages).toBe(14)
     })
 
     it('should return the same PDFDocumentLoadingTask if source is already a PDFDocumentLoadingTask', async () => {

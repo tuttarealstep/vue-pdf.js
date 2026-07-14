@@ -79,7 +79,7 @@ watch(() => props.options, (newOptions: ViewsManagerProps['options']) => {
                 <button id="viewsManagerAddFileButton" class="toolbarButton viewsManagerButton" type="button"
                     tabindex="0" data-l10n-id="pdfjs-views-manager-add-file-button" hidden="true">
                     <span data-l10n-id="pdfjs-views-manager-add-file-button-label"></span>
-                    <input id="viewsManagerAddFilePicker" type="file" accept="application/pdf" />
+                    <input id="viewsManagerAddFilePicker" type="file" accept="application/pdf,image/*" multiple />
                 </button>
                 <button id="viewsManagerCurrentOutlineButton" class="toolbarButton viewsManagerButton" type="button"
                     tabindex="0" data-l10n-id="pdfjs-current-outline-item-button" hidden="true">

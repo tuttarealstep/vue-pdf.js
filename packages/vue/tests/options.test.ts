@@ -73,10 +73,9 @@ test('Catch error when source is invalid - usePDF composable', async () => {
   expect(info.value).toBe(undefined)
   expect(pages.value).toBe(0)
 
-  await new Promise((resolve) => setTimeout(resolve, 100))
-  await vi.waitFor(() => onErrorCallback.mock.calls.length > 0)
-
-  expect(onErrorCallback).toHaveBeenCalled()
+  await vi.waitFor(() => {
+    expect(onErrorCallback).toHaveBeenCalled()
+  })
 })
 
 test('Catch error when source is invalid - without composable', async () => {

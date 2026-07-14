@@ -11,6 +11,10 @@ export default mergeConfig(
       // the pdf.js sources fall back to their development code paths.
       PDFJSDev: 'globalThis.__PDFJSDEV__'
     },
+    optimizeDeps: {
+      include: ['vue', '@vue/test-utils', 'vitest-browser-vue'],
+      noDiscovery: true
+    },
     test: {
       // The error-handling tests intentionally load invalid documents:
       // pdf.js rejects some internal promises (worker messaging, aborted

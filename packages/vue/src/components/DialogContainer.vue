@@ -380,7 +380,7 @@
         </dialog>
 
         <!--#if !MOZCENTRAL-->
-        <dialog id="printServiceDialog" style="min-width: 200px;">
+        <dialog id="printServiceDialog">
             <div class="row">
                 <span data-l10n-id="pdfjs-print-progress-message"></span>
             </div>

@@ -49,29 +49,39 @@ export async function parseSourceFile(source: PDFSource): Promise<PDFDocumentLoa
   }
 
   if (source instanceof File) {
-    return getDocument(await getByteArray(source))
+    return getDocument({ data: await getByteArray(source) })
   }
 
   if (source instanceof Blob) {
-    return getDocument(await source.arrayBuffer())
+    return getDocument({ data: await source.arrayBuffer() })
+  }
+
+  if (source instanceof URL) {
+    return getDocument({ url: source })
   }
 
   if (typeof source === 'string') {
     if (source.startsWith('blob:')) {
       const response = await fetch(source)
-      return getDocument(await response.arrayBuffer())
+      return getDocument({ data: await response.arrayBuffer() })
     }
     if (source.startsWith('data:application/pdf;base64,')) {
-      return getDocument(
-        new Uint8Array(
+      return getDocument({
+        data: new Uint8Array(
           atob(source.split(',')[1])
             .split('')
             .map(function (c) {
               return c.charCodeAt(0)
             })
-        )
-      )
+        ),
+      })
     }
+
+    return getDocument({ url: source })
+  }
+
+  if (source instanceof ArrayBuffer || ArrayBuffer.isView(source)) {
+    return getDocument({ data: source })
   }
 
   return getDocument(source!)

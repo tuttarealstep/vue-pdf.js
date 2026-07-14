@@ -7,7 +7,7 @@
     "dev": "bun run --cwd ../vue build && vite --force"
   },
   "dependencies": {
-    "@tuttarealstep/vue-pdf.js": "file:../vue"
+    "@tuttarealstep/vue-pdf.js": "workspace:*"
   },
   "peerDependencies": {
     "vue": "^3.5.29"
