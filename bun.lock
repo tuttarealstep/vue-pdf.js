@@ -33,8 +33,8 @@
         "eslint": "^8.57.0",
         "eslint-plugin-vue": "^9.33.0",
         "happy-dom": "^15.11.7",
-        "pdf.js": "git://github.com/mozilla/pdf.js.git#v6.0.227",
-        "pdfjs-dist": "6.0.227",
+        "pdf.js": "git://github.com/mozilla/pdf.js.git#v6.1.200",
+        "pdfjs-dist": "6.1.200",
         "playwright": "^1.58.2",
         "prettier": "^3.8.1",
         "sass-embedded": "^1.97.3",
@@ -1005,9 +1005,9 @@
 
     "pathval": ["pathval@2.0.1", "", {}, "sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ=="],
 
-    "pdf.js": ["pdf.js@github:mozilla/pdf.js#241dbab", {}, "mozilla-pdf.js-241dbab", "sha512-JNsljx0mcSPMo+urBIoAl7p/5NsbRbYNTjPIflVXmR0kdXX+pmGADpF2zDLdF9HJLdN6edIgf0lZxWOzitqFRw=="],
+    "pdf.js": ["pdf.js@github:mozilla/pdf.js#6353ace", {}, "mozilla-pdf.js-6353ace", "sha512-GH8/+c6qpsXfhu3imttzbmeruoZFNKCM/Gqu//J17TPMLTRrlLTA3tkz0P/3kE2jsZFkF+UwergIQjWe8VqXAA=="],
 
-    "pdfjs-dist": ["pdfjs-dist@6.0.227", "", { "optionalDependencies": { "@napi-rs/canvas": "^1.0.0" } }, "sha512-/P6M4SXw+70waMVLUM7rdRtvo+dEzqE1t6W/zQNvBETo2MaRa5rrvCcAYdfWGiUzadTgM0lJmRApUrW0d9zgKg=="],
+    "pdfjs-dist": ["pdfjs-dist@6.1.200", "", { "optionalDependencies": { "@napi-rs/canvas": "^1.0.0" } }, "sha512-o8MolyzirkkLrcdsae/HEOiIcXWI7DS5zGpvqW8xTC2YUsW30rltFw2bDGvw/fskUdEMrQm2br68jzDS5BH2vw=="],
 
     "perfect-debounce": ["perfect-debounce@1.0.0", "", {}, "sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA=="],
 
