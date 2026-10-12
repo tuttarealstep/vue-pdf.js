@@ -6,8 +6,22 @@
  */
 @media print {
 
+    /* Applications (mobile ones in particular) commonly lock scrolling with
+       `overflow: hidden` and `position: fixed` on `html`/`body`, which clips or
+       moves the printed pages. */
+    html:has(body[data-pdfjsprinting]),
+    body[data-pdfjsprinting] {
+        position: static !important;
+        overflow: visible !important;
+    }
+
     body[data-pdfjsprinting] > :not(#printContainer) {
         display: none !important;
+    }
+
+    body[data-pdfjsprinting] #printContainer {
+        display: block !important;
+        position: static;
     }
 
     /* Only the viewer that is being printed has pages in its container: an

@@ -8,6 +8,12 @@ import OuterContainer from './OuterContainer.vue';
 import PrintContainer from './PrintContainer.vue';
 import { PDFSourceOptions, PDFSource, PDFSourceWithOptions, PDFInfo } from '../types';
 import { processSource } from '../scripts/utils';
+import {
+  getDocumentFileName,
+  getPlatformPrintStrategy,
+  prepareDocumentForPrinting,
+  printDocumentWithPlatform
+} from '../scripts/platform-print';
 //@ts-ignore
 import { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdf.js/src/display/api';
 //@ts-ignore
@@ -61,6 +67,8 @@ const pdfLoadingTask = shallowRef<PDFDocumentLoadingTask>()
 const pdfDocument = shallowRef<PDFDocumentProxy>()
 const pdfPages = shallowRef(0)
 const pdfInfo = shallowRef<PDFInfo | {}>({})
+const platformPrintStrategy = getPlatformPrintStrategy()
+let restoreTriggerPrinting: (() => void) | null = null
 
 provide(toolbarOptionsKey, props.options?.toolbar)
 provide(viewsManagerOptionsKey, props.options?.viewsManager)
@@ -69,6 +77,12 @@ async function loadDocumentInfo(document: PDFDocumentProxy) {
   pdfDocument.value = document;
   pdfLoadingTask.value = document.loadingTask;
   pdfPages.value = document.numPages;
+
+  if (platformPrintStrategy) {
+    // read the document before the first print, so that the platform dialog can
+    // be opened while the click that asks for it is still being handled
+    prepareDocumentForPrinting(document, getDocumentFileName(props.source))
+  }
 
   const metadata = await document.getMetadata()
   const attachments = (await document.getAttachments()) as Record<string, unknown>
@@ -112,6 +126,13 @@ async function init() {
 
     await pdfApp.value.initializedPromise;
 
+    if (platformPrintStrategy && container.value) {
+      // pdf.js can only print what the browser lays out on mobile platforms, so
+      // the print buttons are taken over and the document is passed to the OS
+      container.value.addEventListener('click', onPrintButtonClick, true);
+      restoreTriggerPrinting = takeOverTriggerPrinting();
+    }
+
     pdfApp.value.eventBus.on('documentloaded', (
       event: {
         source: PDFViewerApplication
@@ -140,6 +161,67 @@ function clearCacheTimeout() {
 
   if (cacheTimeoutId)
     clearTimeout(cacheTimeoutId)
+}
+
+/**
+ * Hands the document over to the platform, so that the PDF itself is printed
+ * instead of the page as the browser displays it. Returns `false` when the
+ * platform could not take over.
+ */
+async function printWithPlatform(): Promise<boolean> {
+  if (!pdfDocument.value || !platformPrintStrategy) {
+    return false;
+  }
+
+  return printDocumentWithPlatform(
+    pdfDocument.value,
+    getDocumentFileName(props.source),
+    platformPrintStrategy
+  );
+}
+
+/**
+ * Takes over the print buttons on the platforms where the browser cannot print
+ * the pages pdf.js renders, and leaves the click to pdf.js everywhere else.
+ */
+function onPrintButtonClick(event: MouseEvent) {
+  const target = event.target as HTMLElement | null;
+
+  if (!target?.closest('#printButton, #secondaryPrint')) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  printWithPlatform().then((printed) => {
+    if (!printed) {
+      pdfApp.value?.triggerPrinting();
+    }
+  });
+}
+
+/**
+ * `triggerPrinting()` is the documented way to print programmatically, and the
+ * toolbar uses it through the event bus, hence both have to be covered. The
+ * original method is restored when the component is unmounted, because
+ * `PDFViewerApplication` is shared between all the viewers of the page.
+ */
+function takeOverTriggerPrinting() {
+  const app = pdfApp.value!;
+  const triggerPrinting = app.triggerPrinting.bind(app);
+
+  app.triggerPrinting = async () => {
+    if (await printWithPlatform()) {
+      return;
+    }
+
+    await triggerPrinting();
+  };
+
+  return () => {
+    app.triggerPrinting = triggerPrinting;
+  };
 }
 
 
@@ -237,6 +319,10 @@ onUnmounted(async () => {
   if (!pdfApp.value) {
     return;
   }
+
+  container.value?.removeEventListener('click', onPrintButtonClick, true);
+  restoreTriggerPrinting?.();
+  restoreTriggerPrinting = null;
 
   // Unbind events
   pdfApp.value.unbindEvents();

@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The GitHub Actions deployment failed (or hung until cancelled) on a clean checkout: the `pdf.js` git dependency resolved to an abbreviated commit that cannot be downloaded from GitHub's tarball API, so `bun install` failed as soon as the local Bun cache was empty
 - The npm publish workflow stopped before publishing: `npm install -g npm@latest` now installs npm 12, which requires Node 22.22.2/24.15.0 and therefore failed on the workflow's Node 20
 - The API reference and the advanced usage guide document `pdfApp.triggerPrinting()`, the pdf.js 6 method name, instead of the removed `pdfApp.print()`
+- Printing on iOS/iPadOS and Android: those browsers only print what is currently on screen, in the standalone pdf.js viewer as well (mozilla/pdf.js#17759, mozilla/pdf.js#21609), so the print buttons and `triggerPrinting()` now hand the document over to the platform - the share sheet on iOS/iPadOS, the browser's PDF viewer on Android - which prints the PDF itself
+- The print stylesheet unlocks `position` and `overflow` on `html`/`body` while printing, so applications that lock the page (mobile web apps in particular) cannot clip the printed pages
 
 ### Changed
 

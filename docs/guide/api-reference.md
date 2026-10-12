@@ -192,6 +192,10 @@ Triggers the print functionality:
 vuepdfjs.value.pdfApp.triggerPrinting();
 ```
 
+::: info Printing on mobile devices
+Mobile browsers do not lay out the pages that pdf.js renders for printing, so on iOS/iPadOS and Android the print action is handed over to the platform instead: the document is attached to the share sheet on iOS/iPadOS, and opened in the browser's PDF viewer on Android, where the platform prints the PDF itself. On desktop browsers nothing changes and the viewer's print dialog is used as usual.
+:::
+
 #### `pdfApp.download()`
 
 Triggers the download functionality:
