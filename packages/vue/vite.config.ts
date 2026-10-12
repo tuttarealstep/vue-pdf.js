@@ -176,6 +176,9 @@ export default defineConfig({
       'web-signature_manager': fileURLToPath(
         new URL('./node_modules/pdf.js/web/signature_manager.js', import.meta.url)
       ),
+      'web-digital_signature_properties_manager': fileURLToPath(
+        new URL('./node_modules/pdf.js/web/digital_signature_properties_manager.js', import.meta.url)
+      ),
       'web-toolbar': fileURLToPath(
         new URL('./node_modules/pdf.js/web/toolbar.js', import.meta.url)
       ),

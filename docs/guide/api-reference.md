@@ -183,13 +183,13 @@ Closes the current document:
 vuepdfjs.value.pdfApp.close();
 ```
 
-#### `pdfApp.print()`
+#### `pdfApp.triggerPrinting()`
 
 Triggers the print functionality:
 
 ```javascript
 // Print the current document
-vuepdfjs.value.pdfApp.print();
+vuepdfjs.value.pdfApp.triggerPrinting();
 ```
 
 #### `pdfApp.download()`

@@ -15,7 +15,10 @@ import PDFJSWorker from './worker?worker&inline'
 
 const AppConstants = { LinkTarget, RenderingStates, ScrollMode, SpreadMode }
 
-async function initViewer(element: HTMLElement): Promise<typeof PDFViewerApplication> {
+async function initViewer(
+  element: HTMLElement,
+  printContainer?: HTMLDivElement | null
+): Promise<typeof PDFViewerApplication> {
   // Honor a worker configured by the host application (or by `usePDF`)
   // before falling back to the bundled inline worker.
   if (!PDFJS.GlobalWorkerOptions?.workerPort && !PDFJS.GlobalWorkerOptions?.workerSrc)
@@ -45,7 +48,10 @@ async function initViewer(element: HTMLElement): Promise<typeof PDFViewerApplica
     }*/
 
   await PDFViewerApplication.run(
-    PDFViewerApplicationConfig(element.getRootNode() as ShadowRoot | Document)
+    PDFViewerApplicationConfig(
+      element.getRootNode() as ShadowRoot | Document,
+      printContainer
+    )
   )
 
   return PDFViewerApplication

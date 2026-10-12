@@ -19,15 +19,25 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    # The pdf.js source archive is ~150MB: fail fast instead of hanging the runner
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      - name: Cache Bun download cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: ${{ runner.os }}-bun-
       - name: Install dependencies
         run: bun install --backend=copyfile
       - name: Build

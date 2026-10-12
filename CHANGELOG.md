@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.3] - 2026-10-12
+
+### Added
+
+- New pdf.js version 6.4.299
+
+### Fixed
+
+- Printing no longer includes the host page: the print container is now a direct child of `<body>` (as in the pdf.js viewer) and the rest of the page is hidden while printing, so only the rendered PDF pages are sent to the printer (covered by a new regression test in `packages/vue/tests/print.test.ts`)
+- The GitHub Actions deployment failed (or hung until cancelled) on a clean checkout: the `pdf.js` git dependency resolved to an abbreviated commit that cannot be downloaded from GitHub's tarball API, so `bun install` failed as soon as the local Bun cache was empty
+- The npm publish workflow stopped before publishing: `npm install -g npm@latest` now installs npm 12, which requires Node 22.22.2/24.15.0 and therefore failed on the workflow's Node 20
+- The API reference and the advanced usage guide document `pdfApp.triggerPrinting()`, the pdf.js 6 method name, instead of the removed `pdfApp.print()`
+
+### Changed
+
+- The `pdf.js` dependency now points to the immutable archive of the release tag (`https://github.com/mozilla/pdf.js/archive/refs/tags/v6.4.299.tar.gz`) instead of the Git repository, which makes installs reproducible on a cold cache and drops the deprecated `git://` protocol
+- GitHub Actions workflows: Bun is pinned to 1.4.2, the Bun download cache is cached between runs, and both jobs stop after 20 minutes instead of hanging
+- The npm publish workflow runs on Node 22 and installs npm 11.x, which supports trusted publishing (OIDC) on Node 22
+
 ## [2.1.2] - 2026-07-14
 
 ### Added

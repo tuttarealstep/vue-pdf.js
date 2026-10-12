@@ -8,9 +8,9 @@
                 <input type="password" id="password" class="toolbarField">
             </div>
             <div class="buttonRow">
-                <button id="passwordCancel" class="dialogButton" type="button"><span
+                <button id="passwordCancel" class="secondaryButton" type="button"><span
                         data-l10n-id="pdfjs-password-cancel-button"></span></button>
-                <button id="passwordSubmit" class="dialogButton" type="button"><span
+                <button id="passwordSubmit" class="primaryButton" type="button"><span
                         data-l10n-id="pdfjs-password-ok-button"></span></button>
             </div>
         </dialog>
@@ -75,8 +75,9 @@
                 <p id="linearizedField" aria-labelledby="linearizedLabel">-</p>
             </div>
             <div class="buttonRow">
-                <button id="documentPropertiesClose" class="dialogButton" type="button"><span
-                        data-l10n-id="pdfjs-document-properties-close-button"></span></button>
+                <button id="documentPropertiesClose" class="secondaryButton" type="button">
+                    <span data-l10n-id="pdfjs-document-properties-close-button"></span>
+                </button>
             </div>
         </dialog>
         <dialog class="dialog altText" id="altTextDialog" aria-labelledby="dialogLabel"
@@ -296,7 +297,7 @@
                                         aria-hidden="true"></button>
                                 </span>
                             </div>
-                            <button id="clearSignatureButton" type="button"
+                            <button id="clearSignatureButton" class="secondaryButton" type="button"
                                 data-l10n-id="pdfjs-editor-add-signature-clear-button" tabindex="0"><span
                                     data-l10n-id="pdfjs-editor-add-signature-clear-button-label"></span></button>
                         </div>
@@ -390,8 +391,7 @@
                     class="relative-progress">0%</span>
             </div>
             <div class="buttonRow">
-                <button id="printCancel" class="dialogButton" type="button"><span
-                        data-l10n-id="pdfjs-print-progress-close-button"></span></button>
+                <button id="printCancel" class="secondaryButton" type="button"><span data-l10n-id="pdfjs-print-progress-close-button"></span></button>
             </div>
         </dialog>
         <!--#endif-->

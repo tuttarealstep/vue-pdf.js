@@ -1,0 +1,19 @@
+/*
+ * While pdf.js is printing (`body[data-pdfjsprinting]`, set by its print service)
+ * the only thing that has to reach the paper is `#printContainer`, which `PrintContainer.vue` 
+ * keeps as a direct child of `<body>`. pdf.js only hides its own `#outerContainer`, so when 
+ * the viewer is embedded in an application the rest of the page has to be hidden here as well.
+ */
+@media print {
+
+    body[data-pdfjsprinting] > :not(#printContainer) {
+        display: none !important;
+    }
+
+    /* Only the viewer that is being printed has pages in its container: an
+       empty one would still produce a blank sheet. */
+    #printContainer:empty {
+        display: none !important;
+    }
+
+}

@@ -13,6 +13,8 @@ permissions:
 jobs:
   build:  
     runs-on: ubuntu-latest
+    # The pdf.js source archive is ~150MB: fail fast instead of hanging the runner
+    timeout-minutes: 20
     permissions:
       contents: read
       id-token: write
@@ -20,13 +22,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         
+      # npm 12 (the current `latest`) needs Node >= 22.22.2 / 24.15.0, which is
+      # why installing it on Node 20 fails before the package is published.
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
+          node-version: "22.x"
           registry-url: "https://registry.npmjs.org"
       
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      
+      - name: Cache Bun download cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: ${{ runner.os }}-bun-
       
       - name: Install packages
         run: bun install --backend=copyfile
@@ -34,8 +47,9 @@ jobs:
       - name: Build package
         run: bun run build
 
+      # npm trusted publishing (OIDC) needs npm >= 11.5.1
       - name: Update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@^11.5.1
 
       - name: Publish packages
         working-directory: packages/vue

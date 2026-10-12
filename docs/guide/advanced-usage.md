@@ -1383,7 +1383,7 @@ function downloadPDF() {
 
 function printPDF() {
   if (!pdfViewer.value?.pdfApp) return;
-  pdfViewer.value.pdfApp.print();
+  pdfViewer.value.pdfApp.triggerPrinting();
 }
 
 function showDocumentProperties() {

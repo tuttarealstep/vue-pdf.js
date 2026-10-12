@@ -207,6 +207,22 @@ const viewsManagerOptions = inject<ViewsManagerProps>(viewsManagerOptionsKey)
                 </div>
                 <div id="toolbarViewerRight" class="toolbarHorizontalGroup">
                     <div id="editorModeButtons" class="toolbarHorizontalGroup">
+                        <div id="signatureProperties" class="toolbarButtonWithContainer" hidden="true">
+                            <button id="signaturePropertiesButton" class="toolbarButton" type="button" tabindex="0"
+                                aria-expanded="false" aria-haspopup="true" aria-controls="signaturePropertiesPanel"
+                                data-l10n-id="pdfjs-digital-signature-properties-button">
+                                <span data-l10n-id="pdfjs-digital-signature-properties-button-label"></span>
+                            </button>
+                            <div class="editorParamsToolbar hidden doorHangerRight" id="signaturePropertiesPanel"
+                                role="region">
+                                <div id="signaturePropertiesContainer" class="signaturePropertiesContainer">
+                                    <div id="signaturePropertiesBanner" class="sigBanner" hidden="true" role="status">
+                                    </div>
+                                    <ul id="signaturePropertiesList" class="signaturePropertiesList" tabindex="-1"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="signaturePropertiesSeparator" class="verticalToolbarSeparator" hidden="true"></div>
                         <div id="editorComment" class="toolbarButtonWithContainer" hidden="true">
                             <button id="editorCommentButton" class="toolbarButton" type="button" tabindex="0" disabled
                                 aria-expanded="false" aria-haspopup="true" aria-controls="editorCommentParamsToolbar"

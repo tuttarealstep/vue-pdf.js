@@ -1,4 +1,7 @@
-export default (rootElement: ShadowRoot | Document) => {
+export default (
+  rootElement: ShadowRoot | Document,
+  printContainer?: HTMLDivElement | null
+) => {
   const getElement = (id: string) => rootElement.getElementById(id)
 
   return {
@@ -31,6 +34,12 @@ export default (rootElement: ShadowRoot | Document) => {
       editorStampParamsToolbar: getElement('editorStampParamsToolbar'),
       editorSignatureButton: getElement('editorSignatureButton'),
       editorSignatureParamsToolbar: getElement('editorSignatureParamsToolbar'),
+      signaturePropertiesButton: getElement('signaturePropertiesButton'),
+      signaturePropertiesPanel: getElement('signaturePropertiesPanel'),
+      signaturePropertiesContainer: getElement('signaturePropertiesContainer'),
+      signaturePropertiesBanner: getElement('signaturePropertiesBanner'),
+      signaturePropertiesList: getElement('signaturePropertiesList'),
+      signaturePropertiesSeparator: getElement('signaturePropertiesSeparator'),
       download: getElement('downloadButton')
     },
     secondaryToolbar: {
@@ -252,7 +261,7 @@ export default (rootElement: ShadowRoot | Document) => {
       editorFreeHighlightThickness: getElement('editorFreeHighlightThickness'),
       editorHighlightShowAll: getElement('editorHighlightShowAll')
     },
-    printContainer: getElement('printContainer'),
+    printContainer: printContainer ?? getElement('printContainer'),
     editorUndoBar: {
       container: getElement('editorUndoBar'),
       message: getElement('editorUndoBarMessage'),

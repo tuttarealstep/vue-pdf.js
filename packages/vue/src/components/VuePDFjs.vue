@@ -15,6 +15,7 @@ import { PDFViewerApplication } from 'pdf.js/web/app';
 import { ToolbarContainerProps } from './ToolbarContainer.vue';
 import { viewsManagerOptionsKey, toolbarOptionsKey } from '@/keys';
 import { ViewsManagerProps } from './ViewsManager.vue';
+import { useTemplateRef } from 'vue';
 
 export interface VuePDFjsProps {
   /**
@@ -51,7 +52,8 @@ const emit = defineEmits<{
   'pdf-app:loaded': []
 }>()
 
-const container = ref<HTMLDivElement>();
+const container = useTemplateRef("container");
+const printContainer = useTemplateRef("printContainer");
 const isLoading = ref(true);
 
 const pdfApp = shallowRef<typeof PDFViewerApplication>()
@@ -101,7 +103,7 @@ async function init() {
       };
     }
 
-    pdfApp.value = await initViewer(container.value);
+    pdfApp.value = await initViewer(container.value, printContainer.value?.printContainer);
 
     // If locale is set in options, we need to set it in the PDFViewerApplicationOptions as well
     if (props.options?.locale) {
@@ -256,7 +258,7 @@ defineExpose({
   <div class="vue-pdfjs" :class="{ 'vue-pdfjs--container-query': props.useContainerQuery }">
     <div class="appContainer" ref="container" id="appContainer">
       <OuterContainer />
-      <PrintContainer />
+      <PrintContainer ref="printContainer" />
     </div>
     <div v-show="isLoading"
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 999;">
